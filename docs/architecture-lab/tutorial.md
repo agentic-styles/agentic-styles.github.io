@@ -4,7 +4,29 @@
 
 设计练习：只需浏览 Slides 和本教程，输出质量属性场景、职责图、ADR、上下文表和验证计划。这条路径不依赖模型 API 或外部服务。
 
-运行实验：在设计练习之外，自备可运行基线、合成输入、冻结规则、统一评分器、候选架构和遥测。只有完成实际测量，才能评价架构收益。当前模块没有附带这套运行工程。
+运行实验：使用独立的 [Labs v0.1.0 实验工程](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck)，其中提供 Single-Agent 教学基线、合成输入、冻结规则、共享契约和确定性评分器。候选 Multi-Agent 架构仍需自行实现；只有完成实际测量，才能评价架构收益。本仓库只提供课程，不嵌入或安装运行工程。
+
+## 获取固定版本并运行离线回归
+
+先安装 Git、uv 和 Python 3.12，再从一个独立工作目录执行以下命令。课程固定使用 `v0.1.0`，便于复现；后续 Labs 版本应独立评审后再更新课程链接。
+
+```sh
+git clone --branch v0.1.0 https://github.com/agentic-styles/labs.git
+cd labs/booking-precheck
+uv sync --all-packages --all-extras --locked
+uv run --locked python tools/generate_materials.py
+uv run --locked python -m pytest contracts/tests agent/tests evaluation/tests
+uv run --locked booking-precheck-eval run --config evaluation/configs/deterministic-smoke.json --output-dir .generated/evaluation
+uv run --locked python ../scripts/verify_evaluation.py .generated/evaluation
+```
+
+依赖安装需要访问软件包源。材料生成、以上测试与确定性 smoke 不需要模型密钥，不调用真实模型或 Langfuse。PDF 从受版本控制的合成源文件生成，评测报告保存在 `.generated/evaluation/`；生成物不进入 Git。
+
+离线测试验证规则、协议、PDF 解析及 scripted 模型驱动的生产工具循环，不测量真实 LLM 准确率。确定性 smoke 运行基线和评分链路；某些提取指标因基线仅返回结果而显示 `N/A`，不能据此推断模型表现。该版本没有完成的 Multi-Agent 方案。
+
+首版的 51 次确定性调用均成功，规则 30/30、业务 12/12 通过；文档阶段仅 2/9 功能通过，其余 7 项被评分器判为文档证据不完整。Labs 的回归检查明确保留这些已知缺口，并检查新增失败；CI 通过不等于所有质量目标已满足。
+
+模型实验、Langfuse 配置与教学基线边界见 [Labs README](https://github.com/agentic-styles/labs/blob/v0.1.0/booking-precheck/README.md)。只有明确配置并选择相应命令后，才运行这些外部服务实验；不要把离线测试通过率或课件中的数字当作真实模型结论。
 
 ## 学习路径
 
@@ -45,7 +67,7 @@ Booking Request 和 SDS Extract 已提供，Preliminary DGD 未提供。规则�
 
 准备可公开或获授权使用的合成单证、字段事实和标准答案。把标准答案放在评测器侧，不能放进 Agent Context。冻结业务规则、聚合语义和预期输出，避免为了候选方案修改评分标准。
 
-实现统一输入输出接口，让 Single-Agent 与候选架构可由同一个 Harness 调用。原教学实现把该接口称为 `booking-precheck-eval/v1`，使用 JSONL 传递请求和响应；这个名称不是本仓库提供的可执行程序。
+使用 Labs 中的共享契约，让 Single-Agent 与候选架构可由同一个 Harness 调用。接口称为 `booking-precheck-eval/v1`，使用 JSONL 传递请求和响应；契约与可执行评测命令位于 Labs，本站只讲解其设计与使用。
 
 为每个案例记录完成状态、最终业务状态、字段与证据质量、延迟、模型调用次数和 Token。成本可用固定价格表换算，但必须记录模型与计价版本。Langfuse 与 LangSmith 是可选的参考工具；也可以使用等价的离线评分和 Trace 记录。
 

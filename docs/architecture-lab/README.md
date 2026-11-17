@@ -11,9 +11,11 @@
 
 ## 当前运行边界
 
-当前仓库可以构建和浏览课程，不能直接运行订舱预审 Agent 或重现课程中的指标。它不包含原项目的 Python Agent、PDF 样本集、Rule Engine、Adapter、Langfuse Dataset 同步工具或 Micro Demo。
+当前仓库负责构建和浏览课程；可运行的教学基线位于独立的 [Labs v0.1.0：Booking Precheck](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck)。Labs 提供 Single-Agent 基线、确定性 Rule Engine、合成样本源文件、Adapter、共享契约和评分工具，PDF 在本地或 CI 从源文件生成。
 
-Slides 中的工具名、协议名和命令名用于解释原参考实现。需要动手运行时，应先准备独立实现与评测环境，并完成教程中的实验准备清单。没有运行证据时，只提交设计假设和验证计划。
+按[学习教程](tutorial.md)克隆固定版本并完成环境准备后，可以执行离线回归。已验证的范围是离线规则、协议与 scripted 工具循环，不是实际模型准确率；真实 LLM 和 Langfuse 实验需另行配置并运行。Single-Agent 保留教学基线的已知边界，Multi-Agent 是学员需要设计、实现和验证的候选方案，尚未提供完成的参考实现。
+
+课程中的示例指标不能视为 Labs 当前版本的实测结果。没有运行证据时，只提交设计假设和验证计划。构建本课程不读取 Labs，不需要其依赖，也不把它作为 submodule。
 
 所有承运人、航线、规则和单证均为合成教学材料。预审通过不等于危险品分类、最终承运批准或订舱确认。
 
@@ -22,5 +24,6 @@ Slides 中的工具名、协议名和命令名用于解释原参考实现。需�
 - [学习教程与讲师指引](tutorial.md)
 - [课程大纲](outline.md)
 - [来源与迁移说明](provenance.md)
+- [实验工程 README（固定版本）](https://github.com/agentic-styles/labs/blob/v0.1.0/booking-precheck/README.md)
 
 构建后的站点入口为 `lab/index.html`，播放器为同目录 `presentation.html`。构建产物不进入 Git。

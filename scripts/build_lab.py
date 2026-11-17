@@ -10,6 +10,7 @@ import html
 import re
 import shutil
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,8 +35,9 @@ def inline(text: str) -> str:
 
     def link(match: re.Match[str]) -> str:
         label, target = match.groups()
-        if target.endswith(".md"):
-            target = target[:-3] + ".html"
+        url = urlsplit(target)
+        if not url.scheme and not url.netloc and url.path.endswith(".md"):
+            target = urlunsplit((url.scheme, url.netloc, url.path[:-3] + ".html", url.query, url.fragment))
         return f'<a href="{target}">{label}</a>'
 
     return re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, value)
@@ -105,7 +107,7 @@ def page(title: str, content: str) -> str:
     return f'''<!doctype html>
 <html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)} · Agentic Architecture Lab</title><style>{DOCUMENT_STYLE}</style></head>
-<body><nav aria-label="课程导航"><a href="../atlas/">Pattern 图鉴</a><a href="../course/">Pattern 基础课</a><a href="index.html">实验课首页</a><a href="presentation.html">Slides</a><a href="tutorial.html">学习教程</a></nav>
+<body><nav aria-label="课程导航"><a href="../atlas/">Pattern 图鉴</a><a href="../course/">Pattern 基础课</a><a href="index.html">实验课首页</a><a href="presentation.html">Slides</a><a href="tutorial.html">学习教程</a><a href="https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck">实验工程 v0.1.0</a></nav>
 <main>{content}</main></body></html>'''
 
 

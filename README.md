@@ -11,7 +11,9 @@
 - [Pattern 基础课](https://agentic-styles.github.io/patterns/course/)
 - [架构实验课](https://agentic-styles.github.io/patterns/lab/)
 
-基础课讲解模式、分类与组合；实验课通过合成 Booking Precheck 案例，练习质量属性场景、架构假设、协作契约与验证决定。实验课当前提供课程材料，不包含可运行的业务 Agent 或评测服务，不应把课程示例指标当成已复现的实验结论。
+基础课讲解模式、分类与组合；实验课通过合成 Booking Precheck 案例，练习质量属性场景、架构假设、协作契约与验证决定。本仓库只维护课程；独立的 [Labs 实验工程 v0.1.0](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck) 提供 Single-Agent 教学基线、合成样本、契约和评分工具。首版验证范围限于离线规则、协议与 scripted 工具循环测试，不代表真实 LLM 准确率，也未提供完成的 Multi-Agent 方案。课程示例指标不是本次迁移复跑的实验结论。
+
+运行工程的环境准备与离线命令见 [实验课教程](docs/architecture-lab/tutorial.md)；网站构建不依赖 Labs，不会安装运行工程的依赖或把它作为 submodule。
 
 ## 源码结构
 
