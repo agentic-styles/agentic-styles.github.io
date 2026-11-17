@@ -42,6 +42,9 @@ def main():
     site = args.site.resolve()
     errors = []
     pages = list(site.rglob('*.html'))
+    for required in ['index.html', 'atlas/index.html', 'atlas/atlas.html', 'atlas/taxonomy.html', 'course/index.html', 'lab/index.html', 'lab/presentation.html']:
+        if not (site / required).is_file():
+            errors.append(f'Missing required built page: {required}; run scripts/build_site.py first')
     for page in pages:
         text = page.read_text(encoding='utf-8')
         if re.search(r'(?:/Users/|/home/|file://|raw\.githack\.com/canmor/)', text):
