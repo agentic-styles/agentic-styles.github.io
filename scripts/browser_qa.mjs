@@ -11,8 +11,7 @@ const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': '
 const server = http.createServer(async (request, response) => {
   try {
     const url = new URL(request.url, 'http://localhost');
-    if (!url.pathname.startsWith('/patterns/')) { response.writeHead(404).end(); return; }
-    let path = resolve(root, decodeURIComponent(url.pathname.slice('/patterns/'.length)));
+    let path = resolve(root, decodeURIComponent(url.pathname.slice(1)));
     if (path !== root && !path.startsWith(root + sep)) { response.writeHead(403).end(); return; }
     if ((await stat(path)).isDirectory()) path = join(path, 'index.html');
     response.writeHead(200, { 'Content-Type': mime[extname(path)] || 'application/octet-stream' });
@@ -23,7 +22,7 @@ await new Promise((resolve, reject) => {
   server.once('error', reject);
   server.listen(0, '127.0.0.1', resolve);
 });
-const base = `http://127.0.0.1:${server.address().port}/patterns/`;
+const base = `http://127.0.0.1:${server.address().port}/`;
 const browser = await chromium.launch({ headless: true, ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
 const report = { checks: [], consoleErrors: [], failedRequests: [] };
 const assert = (name, pass, actual) => {

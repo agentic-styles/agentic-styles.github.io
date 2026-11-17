@@ -49,6 +49,8 @@ def main():
         text = page.read_text(encoding='utf-8')
         if re.search(r'(?:/Users/|/home/|file://|raw\.githack\.com/canmor/)', text):
             errors.append(f'{page.relative_to(site)}: private path or obsolete hosting link')
+        if 'https://agentic-styles.github.io/patterns/' in text or 'https://github.com/agentic-styles/patterns' in text:
+            errors.append(f'{page.relative_to(site)}: obsolete project-site URL')
         links = Links()
         links.feed(text)
         for value in links.links:
@@ -59,10 +61,10 @@ def main():
             if args.before_pdf and path.endswith('.pdf'):
                 continue
             if path.startswith('/patterns/'):
-                target = site / path.removeprefix('/patterns/')
-            elif path.startswith('/'):
-                errors.append(f'{page.relative_to(site)}: non-portable root link {value}')
+                errors.append(f'{page.relative_to(site)}: obsolete project-site prefix {value}')
                 continue
+            elif path.startswith('/'):
+                target = site / path.lstrip('/')
             else:
                 target = page.parent / path
             if target.is_dir():

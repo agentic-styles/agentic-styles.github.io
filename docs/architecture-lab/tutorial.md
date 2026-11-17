@@ -4,14 +4,14 @@
 
 设计练习：只需浏览 Slides 和本教程，输出质量属性场景、职责图、ADR、上下文表和验证计划。这条路径不依赖模型 API 或外部服务。
 
-运行实验：使用独立的 [Labs v0.1.0 实验工程](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck)，其中提供 Single-Agent 教学基线、合成输入、冻结规则、共享契约和确定性评分器。候选 Multi-Agent 架构仍需自行实现；只有完成实际测量，才能评价架构收益。本仓库只提供课程，不嵌入或安装运行工程。
+运行实验：使用独立的 [Labs v0.1.1 实验工程](https://github.com/agentic-styles/labs/tree/v0.1.1/booking-precheck)，其中提供 Single-Agent 教学基线、合成输入、冻结规则、共享契约和确定性评分器。候选 Multi-Agent 架构仍需自行实现；只有完成实际测量，才能评价架构收益。本仓库只提供课程，不嵌入或安装运行工程。
 
 ## 获取固定版本并运行离线回归
 
-先安装 Git、uv 和 Python 3.12，再从一个独立工作目录执行以下命令。课程固定使用 `v0.1.0`，便于复现；后续 Labs 版本应独立评审后再更新课程链接。
+先安装 Git、uv 和 Python 3.12，再从一个独立工作目录执行以下命令。课程固定使用 `v0.1.1`，便于复现；后续 Labs 版本应独立评审后再更新课程链接。
 
 ```sh
-git clone --branch v0.1.0 https://github.com/agentic-styles/labs.git
+git clone --branch v0.1.1 https://github.com/agentic-styles/labs.git
 cd labs/booking-precheck
 uv sync --all-packages --all-extras --locked
 uv run --locked python tools/generate_materials.py
@@ -26,7 +26,7 @@ uv run --locked python ../scripts/verify_evaluation.py .generated/evaluation
 
 首版的 51 次确定性调用均成功，规则 30/30、业务 12/12 通过；文档阶段仅 2/9 功能通过，其余 7 项被评分器判为文档证据不完整。Labs 的回归检查明确保留这些已知缺口，并检查新增失败；CI 通过不等于所有质量目标已满足。
 
-模型实验、Langfuse 配置与教学基线边界见 [Labs README](https://github.com/agentic-styles/labs/blob/v0.1.0/booking-precheck/README.md)。只有明确配置并选择相应命令后，才运行这些外部服务实验；不要把离线测试通过率或课件中的数字当作真实模型结论。
+模型实验、Langfuse 配置与教学基线边界见 [Labs README](https://github.com/agentic-styles/labs/blob/v0.1.1/booking-precheck/README.md)。只有明确配置并选择相应命令后，才运行这些外部服务实验；不要把离线测试通过率或课件中的数字当作真实模型结论。
 
 ## 学习路径
 

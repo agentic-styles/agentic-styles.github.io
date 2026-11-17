@@ -4,14 +4,14 @@
 
 ## 在线阅读
 
-- [站点首页](https://agentic-styles.github.io/patterns/)
-- [图鉴文章](https://agentic-styles.github.io/patterns/atlas/)
-- [完整图鉴](https://agentic-styles.github.io/patterns/atlas/atlas.html)
-- [分类浏览](https://agentic-styles.github.io/patterns/atlas/taxonomy.html)
-- [Pattern 基础课](https://agentic-styles.github.io/patterns/course/)
-- [架构实验课](https://agentic-styles.github.io/patterns/lab/)
+- [站点首页](https://agentic-styles.github.io/)
+- [图鉴文章](https://agentic-styles.github.io/atlas/)
+- [完整图鉴](https://agentic-styles.github.io/atlas/atlas.html)
+- [分类浏览](https://agentic-styles.github.io/atlas/taxonomy.html)
+- [Pattern 基础课](https://agentic-styles.github.io/course/)
+- [架构实验课](https://agentic-styles.github.io/lab/)
 
-基础课讲解模式、分类与组合；实验课通过合成 Booking Precheck 案例，练习质量属性场景、架构假设、协作契约与验证决定。本仓库只维护课程；独立的 [Labs 实验工程 v0.1.0](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck) 提供 Single-Agent 教学基线、合成样本、契约和评分工具。首版验证范围限于离线规则、协议与 scripted 工具循环测试，不代表真实 LLM 准确率，也未提供完成的 Multi-Agent 方案。课程示例指标不是本次迁移复跑的实验结论。
+基础课讲解模式、分类与组合；实验课通过合成 Booking Precheck 案例，练习质量属性场景、架构假设、协作契约与验证决定。本仓库只维护课程；独立的 [Labs 实验工程 v0.1.1](https://github.com/agentic-styles/labs/tree/v0.1.1/booking-precheck) 提供 Single-Agent 教学基线、合成样本、契约和评分工具。首版验证范围限于离线规则、协议与 scripted 工具循环测试，不代表真实 LLM 准确率，也未提供完成的 Multi-Agent 方案。课程示例指标不是本次迁移复跑的实验结论。
 
 运行工程的环境准备与离线命令见 [实验课教程](docs/architecture-lab/tutorial.md)；网站构建不依赖 Labs，不会安装运行工程的依赖或把它作为 submodule。
 
@@ -33,8 +33,8 @@ scripts/                 构建、链接检查、浏览器检查与 PDF 导出
 构建网站只需要 Python 3.12+，不读取私有归档、本机书籍 PDF 或任何凭据：
 
 ```sh
-git clone https://github.com/agentic-styles/patterns.git
-cd patterns
+git clone https://github.com/agentic-styles/agentic-styles.github.io.git
+cd agentic-styles.github.io
 python3 scripts/build_site.py
 python3 -m http.server 8000 --directory dist
 ```

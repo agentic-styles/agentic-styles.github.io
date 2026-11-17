@@ -8,7 +8,7 @@
 
 ## B：基线与公平评测
 
-逻辑页 8–17。区分 Dataset、Task、Trace、Evaluator 和 Experiment；理解答案隔离、统一接口、环境检查以及质量、安全与效率指标。运行 Harness、契约与确定性评分工具由独立的 [Labs v0.1.0](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck) 提供，本模块只维护课程。
+逻辑页 8–17。区分 Dataset、Task、Trace、Evaluator 和 Experiment；理解答案隔离、统一接口、环境检查以及质量、安全与效率指标。运行 Harness、契约与确定性评分工具由独立的 [Labs v0.1.1](https://github.com/agentic-styles/labs/tree/v0.1.1/booking-precheck) 提供，本模块只维护课程。
 
 ## C：当前架构及其压力
 

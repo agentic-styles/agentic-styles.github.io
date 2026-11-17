@@ -107,7 +107,7 @@ def page(title: str, content: str) -> str:
     return f'''<!doctype html>
 <html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)} · Agentic Architecture Lab</title><style>{DOCUMENT_STYLE}</style></head>
-<body><nav aria-label="课程导航"><a href="../atlas/">Pattern 图鉴</a><a href="../course/">Pattern 基础课</a><a href="index.html">实验课首页</a><a href="presentation.html">Slides</a><a href="tutorial.html">学习教程</a><a href="https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck">实验工程 v0.1.0</a></nav>
+<body><nav aria-label="课程导航"><a href="../atlas/">Pattern 图鉴</a><a href="../course/">Pattern 基础课</a><a href="index.html">实验课首页</a><a href="presentation.html">Slides</a><a href="tutorial.html">学习教程</a><a href="https://github.com/agentic-styles/labs/tree/v0.1.1/booking-precheck">实验工程 v0.1.1</a></nav>
 <main>{content}</main></body></html>'''
 
 

@@ -11,7 +11,7 @@
 
 ## 当前运行边界
 
-当前仓库负责构建和浏览课程；可运行的教学基线位于独立的 [Labs v0.1.0：Booking Precheck](https://github.com/agentic-styles/labs/tree/v0.1.0/booking-precheck)。Labs 提供 Single-Agent 基线、确定性 Rule Engine、合成样本源文件、Adapter、共享契约和评分工具，PDF 在本地或 CI 从源文件生成。
+当前仓库负责构建和浏览课程；可运行的教学基线位于独立的 [Labs v0.1.1：Booking Precheck](https://github.com/agentic-styles/labs/tree/v0.1.1/booking-precheck)。Labs 提供 Single-Agent 基线、确定性 Rule Engine、合成样本源文件、Adapter、共享契约和评分工具，PDF 在本地或 CI 从源文件生成。
 
 按[学习教程](tutorial.md)克隆固定版本并完成环境准备后，可以执行离线回归。已验证的范围是离线规则、协议与 scripted 工具循环，不是实际模型准确率；真实 LLM 和 Langfuse 实验需另行配置并运行。Single-Agent 保留教学基线的已知边界，Multi-Agent 是学员需要设计、实现和验证的候选方案，尚未提供完成的参考实现。
 
@@ -24,6 +24,6 @@
 - [学习教程与讲师指引](tutorial.md)
 - [课程大纲](outline.md)
 - [来源与迁移说明](provenance.md)
-- [实验工程 README（固定版本）](https://github.com/agentic-styles/labs/blob/v0.1.0/booking-precheck/README.md)
+- [实验工程 README（固定版本）](https://github.com/agentic-styles/labs/blob/v0.1.1/booking-precheck/README.md)
 
 构建后的站点入口为 `lab/index.html`，播放器为同目录 `presentation.html`。构建产物不进入 Git。
