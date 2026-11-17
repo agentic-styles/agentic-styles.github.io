@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">L1 人机协作 Pattern 空白四象限</title>
+  <desc id="desc">横轴从人与执行过程低耦合到高耦合，纵轴从 Agent 低任务推进自主度到高自主度。四个空白象限依次标记 A、B、C、D，用于学员匹配 Pattern。</desc>
+  <rect width="1200" height="675" fill="#FBF8F1"/>
+
+  <rect x="185" y="45" width="900" height="455" fill="none" stroke="#9BA5AC" stroke-width="1.5"/>
+  <line x1="635" y1="45" x2="635" y2="500" stroke="#9BA5AC" stroke-width="1.5" stroke-dasharray="7 9" opacity=".72"/>
+  <line x1="185" y1="272.5" x2="1085" y2="272.5" stroke="#9BA5AC" stroke-width="1.5" stroke-dasharray="7 9" opacity=".72"/>
+
+  <g font-family="Iowan Old Style, Songti SC, serif" font-size="78" font-weight="700" fill="#B5472D" text-anchor="middle">
+    <text x="410" y="186">A</text>
+    <text x="860" y="186">B</text>
+    <text x="410" y="414">C</text>
+    <text x="860" y="414">D</text>
+  </g>
+
+  <g font-family="Avenir Next, PingFang SC, sans-serif" fill="#5A6671">
+    <text x="185" y="528" font-size="13">低 · 人无需持续在场</text>
+    <text x="1085" y="528" text-anchor="end" font-size="13">高 · 人持续参与</text>
+    <text x="635" y="566" text-anchor="middle" font-size="17" font-weight="750" fill="#172331">人与执行过程的耦合程度</text>
+    <text x="154" y="490" text-anchor="end" font-size="13">低</text>
+    <text x="154" y="61" text-anchor="end" font-size="13">高</text>
+    <text x="80" y="272" text-anchor="middle" transform="rotate(-90 80 272)" font-size="17" font-weight="750" fill="#172331">Agent 的任务推进自主度</text>
+  </g>
+
+  <line x1="185" y1="614" x2="1085" y2="614" stroke="#C8C4BB" stroke-width="1"/>
+  <text x="185" y="634" font-family="Avenir Next, PingFang SC, sans-serif" font-size="12" font-weight="800" letter-spacing="1.5" fill="#B5472D">PATTERNS TO PLACE</text>
+  <g font-family="Avenir Next, PingFang SC, sans-serif" font-size="15" font-weight="720" fill="#172331" text-anchor="middle">
+    <text x="300" y="662">Workflow Participant</text>
+    <text x="525" y="662">Embedded Copilot</text>
+    <text x="755" y="662">Agentic Front Door</text>
+    <text x="980" y="662">Autonomous Worker</text>
+  </g>
+</svg>

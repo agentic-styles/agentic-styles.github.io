@@ -1,0 +1,19 @@
+# Generated publishing and QA artifacts never enter Git.
+/dist/
+/outputs/
+/.qa/
+/work/qa/
+/work/research/
+/work/design/
+*.html
+*.htm
+*.pdf
+
+# Editable .html.in templates and authored source assets remain versioned.
+node_modules/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+tmp/

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="90 分钟线上课程：用三层 System of Interest、独立 Enablers 与 Common、Variant、Compound 关系理解 Agentic AI Patterns。">
+  <title>先分层，再看组合 · Agentic AI Patterns</title>
+  <link rel="icon" href="../atlas/assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <main class="deck" aria-label="Agentic AI Patterns 课程演示文稿">
+
+    <section class="slide active title-slide" data-title="标题">
+      <div>
+        <p class="eyebrow" style="color:#cbd3d7">AGENTIC PATTERN FIELD COURSE · 90 MIN</p>
+        <h1>先分层，<br>再看组合。</h1>
+        <p class="lead">用三层 System of Interest 看懂 Agentic AI Pattern，并把实现手段放回正确位置</p>
+      </div>
+      <div class="small" style="color:#cbd3d7;align-self:end;padding-bottom:1.4rem">
+        <p>面向架构师与开发人员</p>
+        <p>Common Pattern 为主<br>Variant 作为延伸<br>Compound Pattern 单列拆解</p>
+      </div>
+      <div class="layer-stripes" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <aside class="speaker-notes">开场先不解释层级，让学员带着“这些术语到底能不能比较”的问题进入课程。</aside>
+    </section>
+
+    <section class="slide stack" data-title="错误的四选一">
+      <div>
+        <p class="eyebrow">OPENING POLL</p>
+        <p class="big-question">企业异常诊断助手，应该选哪一个？</p>
+        <div class="choice-line"><span>A · ReAct</span><span>B · Multi-Agent</span><span>C · RAG</span><span>D · MCP</span></div>
+      </div>
+      <aside class="speaker-notes">互动 1：用 Zoom/Teams poll，或让学员在聊天区输入 A/B/C/D。停留约 60 秒。</aside>
+    </section>
+
+    <section class="slide split" data-title="它们回答不同问题">
+      <div>
+        <p class="eyebrow">THE REVEAL</p>
+        <h2>它们根本不是互斥选项。</h2>
+        <p class="lead">一个真实系统可以同时使用四者。</p>
+      </div>
+      <div class="answers">
+        <div class="answer"><strong>ReAct</strong><span>一个 Agent 怎样决定下一步</span></div>
+        <div class="answer"><strong>Multi-Agent</strong><span>多个自治单元怎样组织</span></div>
+        <div class="answer"><strong>RAG</strong><span>知识怎样进入当前上下文</span></div>
+        <div class="answer"><strong>MCP</strong><span>Agent Host 怎样连接外部能力</span></div>
+      </div>
+      <aside class="speaker-notes">核心转折：错误不在答案，而在问题把不同 System of Interest 混在了一起。</aside>
+    </section>
+
+    <section class="slide split" data-title="学习目标">
+      <div>
+        <p class="eyebrow">LEARNING OUTCOME</p>
+        <h2>离开课程时，你应该会问对问题。</h2>
+      </div>
+      <div class="recipe-list">
+        <div class="recipe"><b>先归层</b><span>这是业务责任、系统组织、Agent 设计，还是跨层实现手段？</span></div>
+        <div class="recipe"><b>再辨结构</b><span>谁持有目标？谁决定下一步？状态在哪里？</span></div>
+        <div class="recipe"><b>最后看关系</b><span>它是独立结构、Common 的轻量变化，还是多个结构的复合？</span></div>
+      </div>
+    </section>
+
+    <section class="slide split" data-title="什么是 Architecture Pattern">
+      <div>
+        <p class="eyebrow">01 · PATTERN</p>
+        <h2>Architecture Pattern 改变的是责任与结构。</h2>
+      </div>
+      <div>
+        <p class="lead">它描述可重复的系统组织方式，以及参与者之间稳定的责任、控制和协作关系。</p>
+        <div class="rule accent-rule"></div>
+        <p class="body-copy"><b>辨识信号：</b>换掉这个 Pattern 后，目标所有者、决策权、自治边界或状态关系是否改变？</p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="分类边界" style="grid-template-rows:auto minmax(0,1fr);gap:2rem">
+      <div>
+        <p class="eyebrow">CLASSIFICATION BOUNDARY</p>
+        <h2>Pattern、机制、协议和技术，不在同一列。</h2>
+      </div>
+      <div class="taxonomy-line">
+        <div><b>Application Pattern</b><p>定义人、流程与 Agent 的业务责任<br>Copilot · Autonomous Worker</p></div>
+        <div><b>Architecture Pattern</b><p>改变控制权和系统结构<br>Supervisor · Handoff</p></div>
+        <div><b>Design Pattern</b><p>组织 Agent 与局部控制结构<br>ReAct · Prompt Chaining · RAG</p></div>
+        <div><b>Enablers</b><p>实现方法、协议、格式与实践<br>Context · Memory · MCP · Evals</p></div>
+      </div>
+    </section>
+
+    <section class="slide split" data-title="相似的图不代表相同层级">
+      <div>
+        <p class="eyebrow">WHY LEVELS MATTER</p>
+        <h2>箭头相同，语义可能完全不同。</h2>
+        <p class="lead">判断节点是否拥有局部目标、状态、决策循环和停止条件。</p>
+      </div>
+      <div class="diagram-triptych" style="height:68vh">
+        <div class="diagram-cell"><h3><span lang="en">Prompt Chaining</span><small lang="zh-Hans">提示词链</small></h3><img src="assets/diagrams/prompt-chaining.svg" alt="提示词链拓扑"><p>L3 · 固定的局部调用链</p></div>
+        <div class="diagram-cell"><h3><span lang="en">Sequential Agents</span><small lang="zh-Hans">顺序多 Agent</small></h3><img src="assets/diagrams/sequential-agents.svg" alt="Sequential Agents（顺序多 Agent）拓扑"><p>L2 · 多个自治阶段的复合结构</p></div>
+        <div class="diagram-cell"><h3><span lang="en">Handoff</span><small lang="zh-Hans">责任交接</small></h3><img src="assets/diagrams/handoff.svg" alt="责任交接拓扑"><p>L2 · 下一步和会话责任转移</p></div>
+      </div>
+    </section>
+
+    <section class="slide full-visual" data-title="三层地图">
+      <div>
+        <p class="eyebrow">SYSTEM OF INTEREST</p>
+        <h2 style="max-width:none">先确定我们把什么当作完整系统。</h2>
+      </div>
+      <figure class="visual-frame"><img src="assets/diagrams/three-level-pattern-map.svg" alt="Agentic Pattern 三层认知地图与独立实现手段"></figure>
+    </section>
+
+    <section class="slide two-axis" data-title="两个组织轴">
+      <div class="axis-block" style="--accent:var(--l3)">
+        <p class="eyebrow">VERTICAL · WHERE</p>
+        <h3>Pattern 在哪里生效？</h3>
+        <ol><li>L1 · 业务责任</li><li>L2 · 系统组织</li><li>L3 · Agent 与局部设计</li><li>ENABLERS · 实现手段（非 Level）</li></ol>
+      </div>
+      <div class="axis-block" style="--accent:var(--l2)">
+        <p class="eyebrow">HORIZONTAL · HOW RELATED</p>
+        <h3>Pattern 彼此怎样关联？</h3>
+        <ol><li>Standalone</li><li>Common</li><li>Variant</li><li>Compound</li></ol>
+      </div>
+    </section>
+
+    <section class="slide split" data-title="Common 与 Variant">
+      <div>
+        <p class="eyebrow">COMMON FIRST</p>
+        <h2>先学稳定结构，再顺带看变化。</h2>
+        <p class="lead">Variant 不会成为课程的第二套目录。</p>
+      </div>
+      <div class="relationship-flow" style="grid-template-columns:1fr .35fr 1fr">
+        <div class="term"><b>Common</b><p>保存核心参与者、责任与控制关系。</p></div>
+        <div class="arrow">→</div>
+        <div class="term"><b>Variant</b><p>完整保留核心，只增加一个明确限定。</p></div>
+      </div>
+    </section>
+
+    <section class="slide split" data-title="Compound Pattern">
+      <div>
+        <p class="eyebrow">COMPOSITION, NOT INHERITANCE</p>
+        <h2>Compound 是配方，不是轻量变体。</h2>
+        <p class="lead">组合、重复或递归使用多个基础结构。</p>
+      </div>
+      <div>
+        <div class="compound-formula" style="grid-template-columns:auto auto auto auto auto">
+          <span class="component">结构 A</span><span>+</span><span class="component">结构 B</span><span>=</span><span class="result">Compound</span>
+        </div>
+        <p class="body-copy" style="margin-top:2.5rem">Sequential Agents、Hierarchical Multi-Agent 和 Magentic Orchestration 都应按组成关系理解，而不是塞进某个 Common 的 Variant 列表。</p>
+      </div>
+    </section>
+
+    <section class="slide chapter-slide" data-layer="L1" data-title="L1 章节">
+      <div class="chapter-no">L1</div>
+      <div><p class="eyebrow" style="color:inherit">AGENTIC APPLICATION</p><h2>Agent 在业务责任体系中处于什么位置？</h2><p class="lead">先决定人与 Agent 的关系，再谈内部系统结构。</p></div>
+      <div class="chapter-question">关键词<br><b>责任 · 在场 · 自主度</b></div>
+    </section>
+
+    <section class="slide case-layout" data-layer="L1" data-title="Workflow Participant 案例">
+      <div class="case-topology"><div><p class="eyebrow">BASE PATTERN</p><h2 class="pattern-name"><span lang="en">Agentic Workflow Participant</span><small lang="zh-Hans">流程参与者</small></h2><p class="pattern-claim">流程拥有端到端控制权。</p></div><img src="assets/diagrams/workflow-participant.svg" alt="Agentic Workflow Participant（流程参与者）拓扑"><p class="selection-rule">Agent 只处理一个概率性活动；顺序、状态与批准权仍由业务流程持有。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 官方可运行示例</p><a class="project-credit" href="https://github.com/microsoft/agent-framework" target="_blank" rel="noopener noreferrer" aria-label="打开 Microsoft Agent Framework 官方开源仓库"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>Microsoft Agent Framework<small>github.com/microsoft/agent-framework ↗</small></span></a><h3>费用报销审批中的 Agent 节点</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>材料解释可以交给 Agent，但经理、预算和合规审批不能自由改序。</p></div><div class="case-beat"><b>02</b><p>工作流在人工节点暂停和恢复；Agent 只准备摘要与判断依据。</p></div><div class="case-beat"><b>03</b><p>因此 Agent 是流程参与者，而不是流程所有者。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] Microsoft Durable Task HITL workflow: https://learn.microsoft.com/en-us/azure/durable-task/sdks/durable-agents-microsoft-agent-framework</aside>
+    </section>
+
+    <section class="slide case-layout" data-layer="L1" data-title="Embedded Copilot 案例">
+      <div class="case-topology"><div><p class="eyebrow">STANDALONE PATTERN</p><h2 class="pattern-name"><span lang="en">Embedded Copilot</span><small lang="zh-Hans">嵌入式副驾驶</small></h2><p class="pattern-claim">副驾驶增强工作台，但不接管任务。</p></div><img src="assets/diagrams/embedded-copilot.svg" alt="Embedded Copilot（嵌入式副驾驶）拓扑"><p class="selection-rule">人持续参与执行过程，审阅建议，并对最终结果负责。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 成熟产品</p><a class="project-credit" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer" aria-label="打开 GitHub Copilot 官方产品页"><img src="assets/projects/github.png" alt="GitHub 标识"><span>GitHub Copilot<small>github.com/features/copilot ↗</small></span></a><h3>IDE 内的结对编程副驾驶</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>开发者在编辑器中阅读、修改代码和运行测试，需要即时解释与修改建议。</p></div><div class="case-beat"><b>02</b><p>Copilot 利用当前仓库和编辑器上下文生成候选修改。</p></div><div class="case-beat"><b>03</b><p>开发者审阅差异、决定是否接受，并负责最终提交。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] GitHub Copilot documentation: https://docs.github.com/en/copilot</aside>
+    </section>
+
+    <section class="slide case-layout" data-layer="L1" data-title="Agentic Front Door 案例">
+      <div class="case-topology"><div><p class="eyebrow">STANDALONE PATTERN</p><h2 class="pattern-name"><span lang="en">Agentic Front Door</span><small lang="zh-Hans">Agent 化统一入口</small></h2><p class="pattern-claim">统一入口代表用户跨域协调。</p></div><img src="assets/diagrams/agentic-front-door.svg" alt="Agentic Front Door（Agent 化统一入口）拓扑"><p class="selection-rule">用户面对一个任务入口；向下仍要明确 Router、Supervisor 与 Handoff 的边界。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 说明性案例 · 企业员工服务入口</p><h3>一个入口协调 HR、IT 与采购服务</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>员工不知道密码重置、假期余额和采购申请分别属于哪个系统。</p></div><div class="case-beat"><b>02</b><p>入口 Agent 识别业务域，调用对应能力，并汇总跨域请求状态。</p></div><div class="case-beat"><b>03</b><p>它拥有统一导航与结果整合责任，而不是三个彼此独立的助手。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] Microsoft agent architecture guidance: https://learn.microsoft.com/en-us/agents/architecture/</aside>
+    </section>
+
+    <section class="slide case-layout" data-layer="L1" data-title="Autonomous Worker 案例">
+      <div class="case-topology"><div><p class="eyebrow">STANDALONE PATTERN</p><h2 class="pattern-name"><span lang="en">Autonomous Agent Worker</span><small lang="zh-Hans">自主后台工作者</small></h2><p class="pattern-claim">人给出目标，Agent 在后台自主推进。</p></div><img src="assets/diagrams/autonomous-worker.svg" alt="Autonomous Agent Worker（自主后台工作者）拓扑"><p class="selection-rule">人不需要逐步在场，但仍负责目标边界、异常升级和最终采用结果。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/OpenHands/OpenHands" target="_blank" rel="noopener noreferrer" aria-label="打开 OpenHands 官方开源仓库"><img src="assets/projects/openhands.png" alt="OpenHands 标识"><span>OpenHands<small>github.com/OpenHands/OpenHands ↗</small></span></a><h3>异步完成软件工程任务</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>开发者把一个边界清楚的缺陷或改进任务交给软件工程 Agent。</p></div><div class="case-beat"><b>02</b><p>Agent 在受控运行环境中检查仓库、修改代码并验证结果。</p></div><div class="case-beat"><b>03</b><p>完成后把改动与执行证据交回；最终合并与发布仍由工程团队负责。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] OpenHands repository: https://github.com/OpenHands/OpenHands</aside>
+    </section>
+
+    <section class="slide full-visual" data-layer="L1" data-title="L1 四象限互动"><div><p class="eyebrow">INTERACTION · PLACE THE PATTERNS</p><h2 style="max-width:none">四个 Pattern 分别属于 A、B、C 还是 D？</h2></div><figure class="visual-frame"><img src="assets/diagrams/l1-human-agent-blank-map.svg" alt="人与执行过程耦合程度与 Agent 任务推进自主度的空白四象限，象限标记为 A、B、C、D"></figure></section>
+
+    <section class="slide full-visual" data-layer="L1" data-title="L1 四象限答案"><div><p class="eyebrow">QUALITATIVE MAP</p><h2 style="max-width:none">“人是否在场”与“Agent 是否自主”是两个维度。</h2></div><figure class="visual-frame"><img src="assets/diagrams/l1-human-agent-relative-map.svg" alt="L1 人机协作 Pattern 四象限"></figure></section>
+
+    <section class="slide chapter-slide" data-layer="L2" data-title="L2 章节"><div class="chapter-no">L2</div><div><p class="eyebrow" style="color:inherit">AGENTIC SYSTEM</p><h2>一个或多个 Agent 如何组织与分配控制权？</h2><p class="lead">这里才真正回答“要不要 Multi-Agent”。</p></div><div class="chapter-question">关键词<br><b>目标所有权 · 控制权 · 共享状态</b></div></section>
+
+    <section class="slide case-layout" data-layer="L2" data-title="Single Agent 案例">
+      <div class="case-topology"><div><p class="eyebrow">BASELINE PATTERN</p><h2 class="pattern-name"><span lang="en">Single-Agent System</span><small lang="zh-Hans">单 Agent 系统</small></h2><p class="pattern-claim">先证明一个 Agent 不够。</p></div><img src="assets/diagrams/single-agent-system.svg" alt="Single-Agent System（单 Agent 系统）拓扑"><p class="selection-rule">工具、权限和状态能够放进一个上下文时，单 Agent 的协调成本最低。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/SWE-agent/SWE-agent" target="_blank" rel="noopener noreferrer" aria-label="打开 SWE-agent 官方开源仓库"><img src="assets/projects/swe-agent.png" alt="SWE-agent 标识"><span>SWE-agent<small>github.com/SWE-agent/SWE-agent ↗</small></span></a><h3>一个 Agent 完成仓库级缺陷修复</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>缺陷修复需要反复搜索代码、编辑文件并运行测试。</p></div><div class="case-beat"><b>02</b><p>所有观察和决策保留在同一条主 Agent 轨迹中。</p></div><div class="case-beat"><b>03</b><p>没有必须隔离的权限或专业边界，因此不需要协调多个 Agent。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] SWE-agent tools documentation: https://github.com/SWE-agent/SWE-agent/blob/main/docs/config/tools.md</aside>
+    </section>
+
+    <section class="slide case-layout" data-layer="L2" data-title="Supervisor 案例">
+      <div class="case-topology"><div><p class="eyebrow">COMMON PATTERN</p><h2 class="pattern-name"><span lang="en">Supervisor-Specialist</span><small lang="zh-Hans">监督者-专家</small></h2><p class="pattern-claim">Supervisor 持续决定下一步。</p></div><img src="assets/diagrams/supervisor-specialist.svg" alt="Supervisor-Specialist（监督者-专家）拓扑"><p class="selection-rule">总目标、下一步与最终综合持续留在 Supervisor。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 开源框架</p><a class="project-credit" href="https://github.com/langchain-ai/langgraph-supervisor-py" target="_blank" rel="noopener noreferrer" aria-label="打开 LangGraph Supervisor 官方开源仓库"><img src="assets/projects/langchain.png" alt="LangChain 标识"><span>LangGraph Supervisor<small>github.com/langchain-ai/langgraph-supervisor-py ↗</small></span></a><h3>中央协调研究、数学和写作专家</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>复杂研究需要反复调用不同专家，每轮结果都会改变下一步分工。</p></div><div class="case-beat"><b>02</b><p>中央 Agent 选择专家、保留历史并综合局部结果。</p></div><div class="case-beat"><b>03</b><p>它不是一次性 Router，因为协调会持续多个回合。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] LangGraph Supervisor: https://langchain-ai.github.io/langgraphjs/reference/modules/langgraph-supervisor.html</aside>
+    </section>
+
+    <section class="slide related-slide" data-layer="L2" data-title="Supervisor Variants">
+      <div><p class="eyebrow">FORMAL VARIANTS</p><h2>改变 Specialist 生命周期，Supervisor 仍然负责。</h2></div>
+      <div class="change-grid two"><article class="change-item"><p class="delta">一次性 · 隔离上下文</p><h3><span lang="en">Inline Tool Subagent</span><small lang="zh-Hans">内联子 Agent</small></h3><p>专家表现为一次工具调用；完成后只返回结果，不能继续追加任务。</p><figure class="variant-diagram"><img src="assets/diagrams/inline-subagent.svg" alt="Inline Tool Subagent（内联子 Agent）拓扑"></figure></article><article class="change-item"><p class="delta">持久身份 · 可追加任务</p><h3><span lang="en">Agent Pool</span><small lang="zh-Hans">持久 Agent 池</small></h3><p>协调者保留一组专家线程，可在长时任务中反复回到同一位专家。</p><figure class="variant-diagram"><img src="assets/diagrams/agent-pool.svg" alt="Agent Pool（持久 Agent 池）拓扑"></figure></article></div>
+      <div class="invariant-strip"><b>保持不变</b><span>总体目标、分派权和综合责任都在 Supervisor。</span></div>
+    </section>
+
+    <section class="slide related-slide" data-layer="L2" data-title="Router Supervisor Handoff">
+      <div><p class="eyebrow">RELATED PATTERNS · NOT VARIANTS</p><h2>改变控制权，分派会走向三种结构。</h2></div>
+      <div class="change-grid"><article class="change-item"><p class="delta">选择一次去向</p><h3><span lang="en">Router</span><small lang="zh-Hans">路由器-专家</small></h3><p>处理完成后返回调用方；原入口继续拥有目标。</p><figure class="variant-diagram"><img src="assets/diagrams/router-specialist.svg" alt="Router-Specialist（路由器-专家）拓扑"></figure></article><article class="change-item base"><p class="delta">持续中央协调</p><h3><span lang="en">Supervisor</span><small lang="zh-Hans">监督者-专家</small></h3><p>专家反复返回局部结果；中央协调者继续决定下一步。</p><figure class="variant-diagram"><img src="assets/diagrams/supervisor-specialist.svg" alt="Supervisor-Specialist（监督者-专家）拓扑"></figure></article><article class="change-item"><p class="delta">转移会话责任</p><h3><span lang="en">Handoff</span><small lang="zh-Hans">责任交接</small></h3><p>目标 Agent 接管后续交互，直到完成或按协议交回。</p><figure class="variant-diagram"><img src="assets/diagrams/handoff.svg" alt="Handoff（责任交接）拓扑"></figure></article></div>
+      <div class="invariant-strip"><b>判断问题</b><span>箭头之后，谁拥有下一步和会话责任？</span></div>
+    </section>
+
+    <section class="slide case-layout" data-layer="L2" data-title="Parallel Agents 案例">
+      <div class="case-topology"><div><p class="eyebrow">COMMON PATTERN</p><h2 class="pattern-name"><span lang="en">Parallel Agents</span><small lang="zh-Hans">并行多 Agent</small></h2><p class="pattern-claim">并行的是自治单元。</p></div><img src="assets/diagrams/parallel-agents.svg" alt="Parallel Agents（并行多 Agent）拓扑"><p class="selection-rule">每个分支有自己的局部目标、工具循环和停止条件。</p></div>
+      <article class="case-panel"><p class="case-meta">CASE · 开源框架</p><a class="project-credit" href="https://github.com/microsoft/agent-framework" target="_blank" rel="noopener noreferrer" aria-label="打开 Microsoft Agent Framework 官方开源仓库"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>Microsoft Agent Framework<small>github.com/microsoft/agent-framework ↗</small></span></a><h3>同时调查日志、数据库与网络变更</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>一次事故需要三个专业方向同时调查，串行等待会拖慢处置。</p></div><div class="case-beat"><b>02</b><p>多个分析 Agent 独立使用工具，再把结果交给汇总步骤。</p></div><div class="case-beat"><b>03</b><p>并行收益来自真正的自治分支，而不只是并发模型调用。</p></div></div></article>
+      <aside class="speaker-notes">[Sources] Microsoft Agent Framework: https://github.com/microsoft/agent-framework</aside>
+    </section>
+
+    <section class="slide related-slide" data-layer="L2" data-title="Fan-Out Variant"><div><p class="eyebrow">FORMAL VARIANT</p><h2>临时派生并统一回收，就是 Fan-Out Subagents。</h2></div><div class="change-grid two"><article class="change-item base"><p class="delta">稳定角色或既定成员</p><h3><span lang="en">Parallel Agents</span><small lang="zh-Hans">并行多 Agent</small></h3><p>系统设计中存在多个明确的自治角色，并行工作后聚合。</p><figure class="variant-diagram"><img src="assets/diagrams/parallel-agents.svg" alt="Parallel Agents（并行多 Agent）拓扑"></figure></article><article class="change-item"><p class="delta">运行时 Spawn → Wait → End</p><h3><span lang="en">Fan-Out Subagents</span><small lang="zh-Hans">扇出子 Agent</small></h3><p>为当前任务临时创建多个子 Agent；完成后批量回收，不保留长期身份。</p><figure class="variant-diagram"><img src="assets/diagrams/fan-out-subagents.svg" alt="Fan-Out Subagents（扇出子 Agent）拓扑"></figure></article></div><div class="invariant-strip"><b>不要混淆</b><span>L3 Parallelization 只要求调用并行，不要求分支拥有 Agent 身份。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L2" data-title="Group Chat 案例"><div class="case-topology"><div><p class="eyebrow">BASE PATTERN</p><h2 class="pattern-name"><span lang="en">Group Chat Orchestration</span><small lang="zh-Hans">共享会话群聊</small></h2><p class="pattern-claim">所有参与者共享一条累积会话。</p></div><img src="assets/diagrams/group-chat.svg" alt="共享会话群聊"><p class="selection-rule">协作过程本身重要，而且参与者需要看到彼此发言。</p></div><article class="case-panel"><p class="case-meta">CASE · 官方开源实现</p><a class="project-credit" href="https://github.com/microsoft/autogen" target="_blank" rel="noopener noreferrer" aria-label="打开 AutoGen 官方开源仓库"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>AutoGen AgentChat<small>github.com/microsoft/autogen ↗</small></span></a><h3>产品、工程和审校轮流完善方案</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>每个角色都要看到完整讨论，并根据他人发言继续工作。</p></div><div class="case-beat"><b>02</b><p>RoundRobin 或 Selector 管理下一位发言者。</p></div><div class="case-beat"><b>03</b><p>共享媒介是会话线程，而不是 Supervisor 的私有上下文。</p></div></div></article><aside class="speaker-notes">[Sources] AutoGen teams: https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/teams.html</aside></section>
+
+    <section class="slide related-slide" data-layer="L2" data-title="共享协作相关模式"><div><p class="eyebrow">RELATED PATTERNS · CHANGE WHAT IS SHARED</p><h2>共享对象不同，协作语义也不同。</h2></div><div class="change-grid"><article class="change-item base"><p class="delta">共享完整讨论</p><h3><span lang="en">Group Chat</span><small lang="zh-Hans">共享会话群聊</small></h3><p>所有成员读取同一累积线程，由轮次选择器推进。</p><figure class="variant-diagram"><img src="assets/diagrams/group-chat.svg" alt="Group Chat Orchestration（共享会话群聊）拓扑"></figure></article><article class="change-item"><p class="delta">共享主张与反驳</p><h3><span lang="en">Debate & Consensus</span><small lang="zh-Hans">辩论与共识</small></h3><p>参与者保持不同判断路径，通过轮次与裁决规则重新收敛。</p><figure class="variant-diagram"><img src="assets/diagrams/debate-consensus.svg" alt="Debate and Consensus（辩论与共识）拓扑"></figure></article><article class="change-item"><p class="delta">共享问题状态与产物</p><h3><span lang="en">Shared Blackboard</span><small lang="zh-Hans">共享工作区</small></h3><p>成员围绕同一工作区增量贡献，控制逻辑按黑板状态选下一位。</p><figure class="variant-diagram"><img src="assets/diagrams/shared-blackboard.svg" alt="Shared Blackboard（共享工作区）拓扑"></figure></article></div><div class="invariant-strip"><b>共同点</b><span>协作不只是“调用专家并拿回结果”，中间状态对其他参与者可见。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L2" data-title="Peer Network 案例"><div class="case-topology"><div><p class="eyebrow">BASE PATTERN</p><h2 class="pattern-name"><span lang="en">Peer Agent Network</span><small lang="zh-Hans">对等协作网络</small></h2><p class="pattern-claim">没有持续中央协调者。</p></div><img src="assets/diagrams/peer-network.svg" alt="对等协作网络"><p class="selection-rule">当前处理者决定下一跳，控制权在对等节点之间迁移。</p></div><article class="case-panel"><p class="case-meta">CASE · 官方开源实现</p><a class="project-credit" href="https://github.com/microsoft/autogen" target="_blank" rel="noopener noreferrer" aria-label="打开 AutoGen 官方开源仓库"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>AutoGen Swarm<small>github.com/microsoft/autogen ↗</small></span></a><h3>客服、销售和售后直接交接</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>不同领域可根据当前会话状态直接把任务转给合适同伴。</p></div><div class="case-beat"><b>02</b><p>HandoffMessage 指向下一位 Agent，不必绕回中央 Supervisor。</p></div><div class="case-beat"><b>03</b><p>去中心化减少中央瓶颈，也增加责任追踪难度。</p></div></div></article><aside class="speaker-notes">[Sources] AutoGen teams and Swarm: https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/teams.html</aside></section>
+
+    <section class="slide related-slide" data-layer="L2" data-title="去中心化相关模式"><div><p class="eyebrow">RELATED DECENTRALIZED PATTERNS</p><h2>改变推进媒介，去中心化呈现不同形态。</h2></div><div class="change-grid"><article class="change-item base"><p class="delta">当前节点选择下一跳</p><h3><span lang="en">Peer Network</span><small lang="zh-Hans">对等协作网络</small></h3><p>Agent 直接交接，网络连接表达可能的协作路径。</p><figure class="variant-diagram"><img src="assets/diagrams/peer-network.svg" alt="Peer Agent Network（对等协作网络）拓扑"></figure></article><article class="change-item"><p class="delta">事件与订阅推进</p><h3><span lang="en">Event Choreography</span><small lang="zh-Hans">事件驱动协作</small></h3><p>发布者不知道所有消费者；参与者按 Topic 异步响应。</p><figure class="variant-diagram"><img src="assets/diagrams/event-choreography.svg" alt="Event-Driven Agent Choreography（事件驱动协作）拓扑"></figure></article><article class="change-item"><p class="delta">团队内部拥有协调权</p><h3><span lang="en">Autonomous Team</span><small lang="zh-Hans">自治 Agent 团队</small></h3><p>稳定成员直接交换任务与反馈，终止逻辑属于团队自身。</p><figure class="variant-diagram"><img src="assets/diagrams/autonomous-team.svg" alt="Autonomous Agent Team（自治 Agent 团队）拓扑"></figure></article></div><div class="invariant-strip"><b>新增代价</b><span>冲突处理、共享状态一致性与最终业务责任更难追踪。</span></div></section>
+
+    <section class="slide compound-case" data-layer="L2" data-title="Workflow-Centric Hybrid 案例"><div><p class="eyebrow">COMPOUND PATTERN</p><h2 class="pattern-name"><span lang="en">Workflow-Centric Hybrid</span><small lang="zh-Hans">工作流中心混合架构</small></h2><p class="pattern-claim">确定性外壳约束局部自主性。</p><div class="compound-stack"><span>确定性 Workflow</span><i>＋</i><span>受限 Agent Activity</span><i>＋</i><span>可选人工门禁</span><i>＝</i><strong>Workflow-Centric Hybrid</strong></div><figure class="compound-diagram"><img src="../atlas/diagrams/workflow-centric-hybrid.svg" alt="Workflow-Centric Hybrid（工作流中心混合架构）完整拓扑"></figure></div><article class="case-panel"><p class="case-meta">CASE · 开源框架</p><a class="project-credit" href="https://github.com/langchain-ai/langgraph" target="_blank" rel="noopener noreferrer" aria-label="打开 LangGraph 官方开源仓库"><img src="assets/projects/langchain.png" alt="LangChain 标识"><span>LangGraph<small>github.com/langchain-ai/langgraph ↗</small></span></a><h3>在确定性流程中嵌入 Agent 节点</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>固定门禁、重试和结束条件必须可审计。</p></div><div class="case-beat"><b>02</b><p>普通函数和确定性路由约束整体；Agent 只处理资料解释等局部步骤。</p></div><div class="case-beat"><b>03</b><p>组合后获得“可控流程中的局部推理”。</p></div></div></article></section>
+
+    <section class="slide compound-case" data-layer="L2" data-title="Sequential Agents 案例"><div><p class="eyebrow">COMPOUND PATTERN</p><h2 class="pattern-name"><span lang="en">Sequential Agents</span><small lang="zh-Hans">顺序多 Agent</small></h2><p class="pattern-claim">顺序相同，不代表每个节点只是调用。</p><div class="compound-stack"><span>阶段化 Agent 身份</span><i>＋</i><span>Handoff 或 Workflow Control</span><i>＋</i><span>状态化产物交接</span><i>＝</i><strong>Sequential Agents</strong></div><figure class="compound-diagram"><img src="../atlas/diagrams/sequential-agents.svg" alt="Sequential Agents（顺序多 Agent）完整拓扑"></figure></div><article class="case-panel"><p class="case-meta">CASE · 开源框架</p><a class="project-credit" href="https://github.com/crewAIInc/crewAI" target="_blank" rel="noopener noreferrer" aria-label="打开 CrewAI 官方开源仓库"><img src="assets/projects/crewai.png" alt="CrewAI 标识"><span>CrewAI<small>github.com/crewAIInc/crewAI ↗</small></span></a><h3>研究 → 写作 → 审校</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>后一步依赖前一步产物，每个阶段都有独立角色和局部目标。</p></div><div class="case-beat"><b>02</b><p>CrewAI 按任务列表顺序执行，并把输出交给下一角色。</p></div><div class="case-beat"><b>03</b><p>它比 Prompt Chaining 多了 Agent 身份、局部循环和停止条件。</p></div></div></article></section>
+
+    <section class="slide compound-case" data-layer="L2" data-title="Hierarchical Multi-Agent 案例"><div><p class="eyebrow">COMPOUND PATTERN</p><h2 class="pattern-name"><span lang="en">Hierarchical Multi-Agent</span><small lang="zh-Hans">层次化多 Agent</small></h2><p class="pattern-claim">递归使用 Supervisor，形成管理层级。</p><div class="compound-stack"><span>Supervisor-Specialist</span><i>× 递归</i><span>多级目标分解与汇总</span><i>＝</i><strong>Hierarchical Multi-Agent</strong></div><figure class="compound-diagram"><img src="../atlas/diagrams/hierarchical-multi-agent.svg" alt="Hierarchical Multi-Agent（层次化多 Agent）完整拓扑"></figure></div><article class="case-panel"><p class="case-meta">CASE · 开源框架</p><a class="project-credit" href="https://github.com/crewAIInc/crewAI" target="_blank" rel="noopener noreferrer" aria-label="打开 CrewAI 官方开源仓库"><img src="assets/projects/crewai.png" alt="CrewAI 标识"><span>CrewAI Hierarchical Process<small>github.com/crewAIInc/crewAI ↗</small></span></a><h3>Manager 管理专业 Agent 层级</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>大型任务需要 Manager 规划、委派和复核。</p></div><div class="case-beat"><b>02</b><p>执行者只处理被分配的专业任务，结果逐层向上汇总。</p></div><div class="case-beat"><b>03</b><p>它不是普通 Supervisor Variant，而是同一结构的递归复合。</p></div></div></article></section>
+
+    <section class="slide compound-case" data-layer="L2" data-title="Magentic 案例"><div><p class="eyebrow">COMPOUND PATTERN</p><h2 class="pattern-name"><span lang="en">Magentic Orchestration</span><small lang="zh-Hans">动态任务账本编排</small></h2><p class="pattern-claim">开放任务连计划本身也要持续修订。</p><div class="compound-stack"><span>Supervisor + Shared Blackboard</span><i>＋</i><span>Plan-and-Execute + Goal Monitoring</span><i>＝</i><strong>Magentic Orchestration</strong></div><figure class="compound-diagram"><img src="../atlas/diagrams/magentic-orchestration.svg" alt="Magentic Orchestration（动态任务账本编排）完整拓扑"></figure></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/microsoft/autogen/tree/main/python/packages/autogen-magentic-one" target="_blank" rel="noopener noreferrer" aria-label="打开 Magentic-One 官方开源代码"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>Magentic-One<small>github.com/microsoft/autogen/…/autogen-magentic-one ↗</small></span></a><h3>综合网页、文件和代码完成开放研究</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>任务步骤无法预先列全，初始计划会被新证据推翻。</p></div><div class="case-beat"><b>02</b><p>管理者维护任务与进度账本，遇到阻塞时更新计划并重新分派。</p></div><div class="case-beat"><b>03</b><p>区别于普通 Supervisor：它显式维护并修订共同计划。</p></div></div></article></section>
+
+    <section class="slide quiz" data-layer="L2" data-title="L2 配方互动"><p class="eyebrow">INTERACTION · NAME THE RECIPE</p><p class="prompt">中央协调者 + 共享任务账本 + 运行时规划 + 持续进度修订</p><p class="instruction">它最接近哪个 Compound Pattern？为什么它不只是 Supervisor 的 Variant？</p></section>
+
+    <section class="slide waterfall" data-title="认知复位"><div><p class="eyebrow" style="color:#cbd3d7">CHAT WATERFALL</p><h2>目前最容易混淆的是哪一对 Pattern？</h2><p class="lead">先输入，暂时不要发送。倒数结束后一起提交。</p></div><div class="countdown">3</div></section>
+
+    <section class="slide chapter-slide" data-layer="L3" data-title="L3 章节"><div class="chapter-no">L3</div><div><p class="eyebrow" style="color:inherit">AGENTIC DESIGN</p><h2>Agent 与局部控制结构如何完成决策和行动？</h2><p class="lead">L3 包含认知循环，也包含可复用的 Workflow、知识、行动与可靠执行结构。</p></div><div class="chapter-question">关键词<br><b>观察 · 推理 · 调用 · 知识 · 控制</b></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="ReAct 案例"><div class="case-topology"><div><p class="eyebrow">BASE PATTERN</p><h2 class="pattern-name"><span lang="en">ReAct Agent</span><small lang="zh-Hans">推理-行动循环</small></h2><p class="pattern-claim">决策持续依赖环境反馈。</p></div><img src="assets/diagrams/react-agent.svg" alt="ReAct Agent"><p class="selection-rule">下一步无法预先确定，而且每次工具结果都会改变后续行动。</p></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/SWE-agent/SWE-agent" target="_blank" rel="noopener noreferrer" aria-label="打开 SWE-agent 官方开源仓库"><img src="assets/projects/swe-agent.png" alt="SWE-agent 标识"><span>SWE-agent<small>github.com/SWE-agent/SWE-agent ↗</small></span></a><h3>在代码库中推理、行动并观察结果</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>修复缺陷时无法预先知道要查看哪些文件。</p></div><div class="case-beat"><b>02</b><p>Agent 搜索、修改或测试，再依据最新输出决定下一步。</p></div><div class="case-beat"><b>03</b><p>形成 Thought–Action–Observation 式控制循环。</p></div></div></article><aside class="speaker-notes">[Sources] SWE-agent repository: https://github.com/SWE-agent/SWE-agent</aside></section>
+
+    <section class="slide related-slide" data-layer="L3" data-title="相关控制循环"><div><p class="eyebrow">RELATED PATTERNS · CHANGE PLANNING DEPTH</p><h2>改变规划强度，Agent 的控制循环随之变化。</h2></div><div class="change-grid four"><article class="change-item"><p class="delta">当前信号直接行动</p><h3><span lang="en">Reactive</span><small lang="zh-Hans">反应式 Agent</small></h3><p>低延迟、短任务，不形成长计划。</p><figure class="variant-diagram"><img src="assets/diagrams/reactive-agent.svg" alt="Reactive Agent（反应式 Agent）拓扑"></figure></article><article class="change-item base"><p class="delta">推理—行动—观察</p><h3><span lang="en">ReAct</span><small lang="zh-Hans">推理-行动循环</small></h3><p>每次环境反馈改变下一步。</p><figure class="variant-diagram"><img src="assets/diagrams/react-agent.svg" alt="ReAct Agent（推理-行动循环）拓扑"></figure></article><article class="change-item"><p class="delta">显式全局计划</p><h3><span lang="en">Plan-and-Execute</span><small lang="zh-Hans">规划并执行</small></h3><p>先计划，再逐项执行与重规划。</p><figure class="variant-diagram"><img src="assets/diagrams/plan-and-execute.svg" alt="Plan-and-Execute（规划并执行）拓扑"></figure></article><article class="change-item"><p class="delta">显式目标承诺</p><h3><span lang="en">BDI</span><small lang="zh-Hans">信念-愿望-意图 Agent</small></h3><p>管理信念、愿望、意图和重新考虑。</p><figure class="variant-diagram"><img src="assets/diagrams/bdi-agent.svg" alt="Belief-Desire-Intention Agent（信念-愿望-意图 Agent）拓扑"></figure></article></div><div class="invariant-strip"><b>注意</b><span>这些都描述一个 Agent 的内部控制结构，不自动产生多个 L2 Agent。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="Reflection 案例"><div class="case-topology"><div><p class="eyebrow">COMMON PATTERN</p><h2 class="pattern-name"><span lang="en">Reflection</span><small lang="zh-Hans">反思</small></h2><p class="pattern-claim">用反馈推动再次生成。</p></div><img src="assets/diagrams/reflection.svg" alt="反思模式"><p class="selection-rule">适合可以通过语言反馈逐步改善、但难以一次生成到位的任务。</p></div><article class="case-panel"><p class="case-meta">CASE · 官方开源示例</p><a class="project-credit" href="https://github.com/microsoft/autogen" target="_blank" rel="noopener noreferrer" aria-label="打开 AutoGen 官方开源仓库"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>AutoGen Reflection Team<small>github.com/microsoft/autogen ↗</small></span></a><h3>Primary 与 Critic 反复修订回答</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>初稿需要检查遗漏与表达质量。</p></div><div class="case-beat"><b>02</b><p>Critic 给出反馈，Primary 继续修改，直到输出 APPROVE。</p></div><div class="case-beat"><b>03</b><p>生成、批评和再次生成形成显式反馈循环。</p></div></div></article><aside class="speaker-notes">[Sources] AutoGen reflection team: https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/tutorial/teams.html</aside></section>
+
+    <section class="slide related-slide" data-layer="L3" data-title="Evaluator Optimizer Variant"><div><p class="eyebrow">FORMAL VARIANT</p><h2>把评价权显式分离，得到 Evaluator–Optimizer。</h2></div><div class="change-grid two"><article class="change-item base"><p class="delta">反馈可以由同一 Agent 产生</p><h3><span lang="en">Reflection</span><small lang="zh-Hans">反思</small></h3><p>重点是“检查—修订”的循环；评价角色和通过条件可以较松散。</p><figure class="variant-diagram"><img src="assets/diagrams/reflection.svg" alt="Reflection（反思）拓扑"></figure></article><article class="change-item"><p class="delta">评价角色与标准显式化</p><h3><span lang="en">Evaluator–Optimizer</span><small lang="zh-Hans">评估者-优化者</small></h3><p>生成者产出候选，评价者按标准给反馈，并决定是否达到结束条件。</p><figure class="variant-diagram"><img src="assets/diagrams/evaluator-optimizer.svg" alt="Evaluator-Optimizer（评估者-优化者）拓扑"></figure></article></div><div class="invariant-strip"><b>跨层提醒</b><span>评价者是否实现为另一个 Agent，是 L2 的组织决策。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="Goal Monitoring 案例"><div class="case-topology"><div><p class="eyebrow">BASE PATTERN</p><h2 class="pattern-name"><span lang="en">Goal Setting and Monitoring</span><small lang="zh-Hans">目标设定与监控</small></h2><p class="pattern-claim">显式目标状态连接计划与行动。</p></div><img src="assets/diagrams/goal-monitoring.svg" alt="目标设定与监控"><p class="selection-rule">开放任务容易重复、遗漏或停滞时，需要让进度本身成为一等状态。</p></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/microsoft/autogen/tree/main/python/packages/autogen-magentic-one" target="_blank" rel="noopener noreferrer" aria-label="打开 Magentic-One 官方开源代码"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>Magentic-One<small>github.com/microsoft/autogen/…/autogen-magentic-one ↗</small></span></a><h3>用任务账本监控开放任务进度</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>开放任务容易重复搜索、忽略子目标或困在失败路径。</p></div><div class="case-beat"><b>02</b><p>管理者记录计划、已完成事项和阻塞。</p></div><div class="case-beat"><b>03</b><p>账本持续检测偏离、停滞和完成。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="L3" data-title="相关运行策略"><div><p class="eyebrow">RELATED OPERATING POLICIES</p><h2>改变管理对象，得到三种运行策略。</h2></div><div class="change-grid"><article class="change-item"><p class="delta">管理工作顺序</p><h3><span lang="en">Prioritization</span><small lang="zh-Hans">优先级排序</small></h3><p>按影响、紧迫度、风险和可逆性决定先做什么。</p><figure class="variant-diagram"><img src="assets/diagrams/prioritization.svg" alt="Prioritization（优先级排序）拓扑"></figure></article><article class="change-item"><p class="delta">管理模型与工具预算</p><h3><span lang="en">Resource-Aware</span><small lang="zh-Hans">资源感知优化</small></h3><p>简单任务走低成本路径，复杂或高风险任务再升级。</p><figure class="variant-diagram"><img src="assets/diagrams/resource-aware.svg" alt="Resource-Aware Optimization（资源感知优化）拓扑"></figure></article><article class="change-item"><p class="delta">管理跨任务行为变化</p><h3><span lang="en">Learning & Adaptation</span><small lang="zh-Hans">学习与适应</small></h3><p>将反馈转化为后续程序、提示或策略更新。</p><figure class="variant-diagram"><img src="assets/diagrams/learning-adaptation.svg" alt="Learning and Adaptation（学习与适应）拓扑"></figure></article></div><div class="invariant-strip"><b>共同点</b><span>都改变 Agent 的运行政策，但不会自行改变 L2 的责任边界。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="Reasoning Strategies 案例"><div class="case-topology"><div><p class="eyebrow">COMMON PATTERN</p><h2 class="pattern-name"><span lang="en">Reasoning Strategies</span><small lang="zh-Hans">推理策略组合</small></h2><p class="pattern-claim">组织 Agent 内部的候选搜索路径。</p></div><img src="assets/diagrams/reasoning-strategies.svg" alt="推理策略组合"><p class="selection-rule">产生多条候选路径，仍然可能只是一个 Agent 的内部搜索。</p></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/stanfordnlp/dspy" target="_blank" rel="noopener noreferrer" aria-label="打开 DSPy 官方开源仓库"><img src="assets/projects/stanfordnlp.png" alt="Stanford NLP 标识"><span>DSPy<small>github.com/stanfordnlp/dspy ↗</small></span></a><h3>为不同任务组合 ReAct 与优化策略</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>知识问答既要使用搜索工具，也要按难度组织推理步骤。</p></div><div class="case-beat"><b>02</b><p>DSPy 将 ReAct 等模块作为可组合、可评估的程序策略。</p></div><div class="case-beat"><b>03</b><p>策略通过指标选择，而不是固定给所有任务同一种思维链。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="L3" data-title="Exploration Variant"><div><p class="eyebrow">FORMAL VARIANT</p><h2>把搜索空间打开，得到 Exploration & Discovery。</h2></div><div class="change-grid two"><article class="change-item base"><p class="delta">在候选路径中推理与选择</p><h3><span lang="en">Reasoning Strategies</span><small lang="zh-Hans">推理策略组合</small></h3><p>组织 CoT、ToT、自洽或自我修正等内部搜索方式。</p><figure class="variant-diagram"><img src="assets/diagrams/reasoning-strategies.svg" alt="Reasoning Strategies（推理策略组合）拓扑"></figure></article><article class="change-item"><p class="delta">主动生成并验证未知假设</p><h3><span lang="en">Exploration & Discovery</span><small lang="zh-Hans">探索与发现</small></h3><p>路径和答案都不确定，需要扩大搜索、保存证据、剪枝并设置预算。</p><figure class="variant-diagram"><img src="assets/diagrams/exploration-discovery.svg" alt="Exploration and Discovery（探索与发现）拓扑"></figure></article></div><div class="invariant-strip"><b>新增代价</b><span>更大的成本与不收敛风险，因此必须明确停止条件。</span></div></section>
+
+    <section class="slide quiz" data-layer="L3" data-title="L3 判断互动"><p class="eyebrow">INTERACTION · ONE AGENT OR MANY?</p><p class="prompt">一个模型生成五条推理路径，再用自洽投票选答案。</p><p class="instruction">这是 Parallel Agents，还是一个 Agent 内部的 Reasoning Strategy？判断依据是什么？</p></section>
+
+    <section class="slide chapter-slide" data-layer="L3" data-title="L3 设计结构续"><div class="chapter-no">L3</div><div><p class="eyebrow" style="color:inherit">DESIGN STRUCTURES · CONTINUED</p><h2>局部 Workflow、行动边界与可靠执行，也属于 Design Pattern。</h2><p class="lead">只有能表达稳定参与者、关系、控制流与后果的条目，才进入这一层。</p></div><div class="chapter-question">关键词<br><b>调用链 · 检索 · 审批 · 持久化 · 补偿</b></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="Prompt Chaining 案例"><div class="case-topology"><div><p class="eyebrow">BASE PATTERN</p><h2 class="pattern-name"><span lang="en">Prompt Chaining</span><small lang="zh-Hans">提示词链</small></h2><p class="pattern-claim">固定步骤先用最小调用链。</p></div><img src="assets/diagrams/prompt-chaining.svg" alt="提示词链"><p class="selection-rule">节点只是模型或工具调用，不拥有独立目标和自治循环。</p></div><article class="case-panel"><p class="case-meta">CASE · 官方模式示例 · Anthropic</p><h3>把营销文案拆成可验证调用链</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>先提取产品事实，再生成草稿，最后按品牌规则检查。</p></div><div class="case-beat"><b>02</b><p>每一步处理上一阶段输出，步骤之间可以加入程序化门禁。</p></div><div class="case-beat"><b>03</b><p>步骤在设计时固定，因此不需要升级成 Sequential Agents。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="L3" data-title="相关局部流程"><div><p class="eyebrow">RELATED LOCAL DESIGN PATTERNS</p><h2>改变局部控制流，不必改变 Agent 架构。</h2></div><div class="change-grid four"><article class="change-item base"><p class="delta">固定顺序</p><h3><span lang="en">Prompt Chaining</span><small lang="zh-Hans">提示词链</small></h3><p>前一步输出进入下一步。</p><figure class="variant-diagram"><img src="assets/diagrams/prompt-chaining.svg" alt="Prompt Chaining（提示词链）拓扑"></figure></article><article class="change-item"><p class="delta">条件分支</p><h3><span lang="en">Routing</span><small lang="zh-Hans">路由</small></h3><p>先分类，再进入一个或多个专用处理链。</p><figure class="variant-diagram"><img src="assets/diagrams/routing.svg" alt="Routing（路由）拓扑"></figure></article><article class="change-item"><p class="delta">并行分支</p><h3><span lang="en">Parallelization</span><small lang="zh-Hans">并行化</small></h3><p>并发检查、生成或投票，然后聚合。</p><figure class="variant-diagram"><img src="assets/diagrams/parallelization.svg" alt="Parallelization（并行化）拓扑"></figure></article><article class="change-item"><p class="delta">改变单次调用策略</p><h3><span lang="en">Advanced Prompting</span><small lang="zh-Hans">高级提示技术族</small></h3><p>调节提示与推理技术，不自动改变责任结构。</p><figure class="variant-diagram"><img src="assets/diagrams/advanced-prompting.svg" alt="Advanced Prompting Techniques（高级提示技术族）拓扑"></figure></article></div><div class="invariant-strip"><b>共同点</b><span>都可以发生在一个 Agent 或一个 Workflow 内部。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="Tool Use 案例"><div class="case-topology"><div><p class="eyebrow">BASE MECHANISM</p><h2 class="pattern-name"><span lang="en">Tool Use</span><small lang="zh-Hans">工具使用</small></h2><p class="pattern-claim">让 Agent 对环境采取行动。</p></div><img src="assets/diagrams/tool-use.svg" alt="工具使用"><p class="selection-rule">工具是行动能力，不是新的 Agent；副作用必须由权限和恢复机制约束。</p></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/SWE-agent/SWE-agent" target="_blank" rel="noopener noreferrer" aria-label="打开 SWE-agent 官方开源仓库"><img src="assets/projects/swe-agent.png" alt="SWE-agent 标识"><span>SWE-agent<small>github.com/SWE-agent/SWE-agent ↗</small></span></a><h3>用受控工具操作代码库</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>模型本身不能直接查看文件、编辑代码或运行测试。</p></div><div class="case-beat"><b>02</b><p>SWE-agent 将 Bash、文件查看器和编辑器组织成 Tool Bundles。</p></div><div class="case-beat"><b>03</b><p>Agent 执行动作，再根据工具结果继续决策。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="E" data-title="相关能力与状态机制"><div><p class="eyebrow">RELATED CAPABILITY MECHANISMS</p><h2>行动之外，Agent 还要管理上下文、状态与方法。</h2></div><div class="change-grid"><article class="change-item"><p class="delta">选择当前信息</p><h3><span lang="en">Context Engineering</span><small lang="zh-Hans">上下文工程</small></h3><p>在正确时机选择、压缩并组装任务相关信息。</p><figure class="variant-diagram"><img src="assets/diagrams/context-engineering.svg" alt="Context Engineering（上下文工程）拓扑"></figure></article><article class="change-item"><p class="delta">保存跨步骤状态</p><h3><span lang="en">Memory Management</span><small lang="zh-Hans">记忆管理</small></h3><p>通过线程、Checkpoint 或长期记忆保持连续性。</p><figure class="variant-diagram"><img src="assets/diagrams/memory-management.svg" alt="Memory Management（记忆管理）拓扑"></figure></article><article class="change-item"><p class="delta">封装可复用方法</p><h3><span lang="en">Agent Skills</span><small lang="zh-Hans">Agent Skills</small></h3><p>按需加载专门说明、脚本与资料，不创建新的 Agent 身份。</p><figure class="variant-diagram"><img src="assets/diagrams/agent-skills.svg" alt="Agent Skills 拓扑"></figure></article></div><div class="invariant-strip"><b>与 Tool 的关系</b><span>Tool 提供行动接口；Context、Memory 和 Skills 决定 Agent 带着什么去行动。</span></div></section>
+
+    <section class="slide case-layout" data-layer="L3" data-title="RAG 案例"><div class="case-topology"><div><p class="eyebrow">COMMON PATTERN</p><h2 class="pattern-name"><span lang="en">Retrieval-Augmented Generation</span><small lang="zh-Hans">检索增强生成</small></h2><p class="pattern-claim">把外部证据带入当前上下文。</p></div><img src="assets/diagrams/rag.svg" alt="检索增强生成模式"><p class="selection-rule">稳定的一次检索已经足够时，不要先升级为 Agentic RAG。</p></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/run-llama/llama_index" target="_blank" rel="noopener noreferrer" aria-label="打开 LlamaIndex 官方开源仓库"><img src="assets/projects/llamaindex.png" alt="LlamaIndex 标识"><span>LlamaIndex<small>github.com/run-llama/llama_index ↗</small></span></a><h3>基于企业私有文档检索后回答</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>模型参数知识可能过期，也无法包含组织内部制度。</p></div><div class="case-beat"><b>02</b><p>文档被解析、索引和检索，相关片段进入当前请求。</p></div><div class="case-beat"><b>03</b><p>数据源和检索路径可预先配置，一次检索满足大多数问题。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="L3" data-title="Agentic RAG Variant"><div><p class="eyebrow">FORMAL VARIANT</p><h2>把检索交给 Agent 控制，得到 Agentic RAG。</h2></div><div class="change-grid two"><article class="change-item base"><p class="delta">设计时固定检索</p><h3><span lang="en">RAG</span><small lang="zh-Hans">检索增强生成</small></h3><p>固定触发、固定数据源、通常一次检索；简单、低延迟且易评估。</p><figure class="variant-diagram"><img src="assets/diagrams/rag.svg" alt="Retrieval-Augmented Generation（检索增强生成）拓扑"></figure></article><article class="change-item"><p class="delta">运行时闭环检索</p><h3><span lang="en">Agentic RAG</span><small lang="zh-Hans">Agentic 检索增强生成</small></h3><p>Agent 判断是否检索、改写查询、选择数据源并评价证据是否充分。</p><figure class="variant-diagram"><img src="assets/diagrams/agentic-rag.svg" alt="Agentic RAG（Agentic 检索增强生成）拓扑"></figure></article></div><div class="invariant-strip"><b>升级代价</b><span>循环、延迟、成本与不可信证据传播风险同时增加。</span></div></section>
+
+    <section class="slide chapter-slide" data-layer="E" data-title="Enablers 章节"><div class="chapter-no">TOOLS</div><div><p class="eyebrow" style="color:inherit">TECHNIQUES · PROTOCOLS · PRACTICES</p><h2>哪些工程手段支撑这些 Pattern？</h2><p class="lead">它们可以跨层复用或替换，因此单独编目，不构成第四层 Pattern。</p></div><div class="chapter-question">关键词<br><b>上下文 · 记忆 · 协议 · 安全 · 评估</b></div></section>
+
+    <section class="slide case-layout" data-layer="E" data-title="MCP 案例"><div class="case-topology"><div><p class="eyebrow">PROTOCOL</p><h2 class="pattern-name"><span lang="en">Model Context Protocol</span><small lang="zh-Hans">模型上下文协议</small></h2><p class="pattern-claim">统一连接工具、资源与提示。</p></div><img src="assets/diagrams/mcp.svg" alt="模型上下文协议"><p class="selection-rule">协议解决 Host 与能力服务的连接，不决定采用何种 L2 组织方式。</p></div><article class="case-panel"><p class="case-meta">CASE · 官方开源参考实现</p><a class="project-credit" href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener noreferrer" aria-label="打开 MCP Servers 官方开源仓库"><img src="assets/projects/mcp.png" alt="Model Context Protocol 标识"><span>MCP Servers<small>github.com/modelcontextprotocol/servers ↗</small></span></a><h3>统一连接 Filesystem、Git 与 Memory</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>Agent Host 需要接入多种本地或远程数据和工具。</p></div><div class="case-beat"><b>02</b><p>客户端以统一协议发现 Tools、Resources 和 Prompts。</p></div><div class="case-beat"><b>03</b><p>Host Agent 仍持有任务；MCP 不会自动产生 Multi-Agent 架构。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="E" data-title="相关互操作机制"><div><p class="eyebrow">RELATED INTEROPERABILITY MECHANISMS</p><h2>改变连接对象，就得到不同契约。</h2></div><div class="change-grid"><article class="change-item base"><p class="delta">Host ↔ Tool / Resource Server</p><h3><span lang="en">MCP</span><small lang="zh-Hans">模型上下文协议</small></h3><p>Host 保留任务，远端提供工具、资源和提示。</p><figure class="variant-diagram"><img src="assets/diagrams/mcp.svg" alt="Model Context Protocol（模型上下文协议）拓扑"></figure></article><article class="change-item"><p class="delta">Agent ↔ Remote Agent</p><h3><span lang="en">A2A</span><small lang="zh-Hans">Agent 间通信协议</small></h3><p>读取 AgentCard，委派长任务，并接收状态与 Artifact。</p><figure class="variant-diagram"><img src="assets/diagrams/a2a.svg" alt="Agent2Agent Protocol（Agent 间通信协议）拓扑"></figure></article><article class="change-item"><p class="delta">Discover before connect</p><h3><span lang="en">Agent Registry</span><small lang="zh-Hans">Agent 注册与能力发现</small></h3><p>保存能力、协议和部署元数据，供协调者发现合适 Agent。</p><figure class="variant-diagram"><img src="assets/diagrams/agent-registry.svg" alt="Agent Registry and Capability Discovery（Agent 注册与能力发现）拓扑"></figure></article></div><div class="invariant-strip"><b>不回答的问题</b><span>它们都不决定系统采用 Router、Supervisor、Handoff 还是 Peer Network。</span></div></section>
+
+    <section class="slide case-layout" data-layer="E" data-title="Guardrails 案例"><div class="case-topology"><div><p class="eyebrow">BASE CONTROL</p><h2 class="pattern-name"><span lang="en">Guardrails and Safety</span><small lang="zh-Hans">防护栏</small></h2><p class="pattern-claim">在模型之外执行安全规则。</p></div><img src="assets/diagrams/guardrails.svg" alt="防护栏与安全"><p class="selection-rule">不要依赖模型在每一轮“自觉”遵守提示；控制必须落在可执行边界。</p></div><article class="case-panel"><p class="case-meta">CASE · 开源项目</p><a class="project-credit" href="https://github.com/NVIDIA-NeMo/Guardrails" target="_blank" rel="noopener noreferrer" aria-label="打开 NVIDIA NeMo Guardrails 官方开源仓库"><img src="assets/projects/nvidia-nemo.png" alt="NVIDIA NeMo 标识"><span>NVIDIA NeMo Guardrails<small>github.com/NVIDIA-NeMo/Guardrails ↗</small></span></a><h3>在模型与工具周围执行可编程 Rails</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>对话 Agent 要限制敏感主题、检测注入并约束工具行动。</p></div><div class="case-beat"><b>02</b><p>Input、Dialog、Retrieval、Execution 和 Output Rails 分层执行。</p></div><div class="case-beat"><b>03</b><p>安全控制独立于模型的概率性判断。</p></div></div></article></section>
+
+    <section class="slide related-slide" data-layer="E" data-title="相关控制机制"><div><p class="eyebrow">RELATED CROSS-CUTTING CONTROLS</p><h2>改变控制对象，构成完整治理面。</h2></div><div class="change-grid four"><article class="change-item"><p class="delta">谁有权行动</p><h3><span lang="en">Identity & Policy</span><small lang="zh-Hans">Agent 身份与策略执行点</small></h3><p>验证 Agent 身份、委托关系与最小权限。</p><figure class="variant-diagram"><img src="assets/diagrams/agent-identity-policy.svg" alt="Agent Identity and Policy Enforcement（Agent 身份与策略执行点）拓扑"></figure></article><article class="change-item"><p class="delta">何时交回人类</p><h3><span lang="en">Human-in-the-Loop</span><small lang="zh-Hans">人机协同</small></h3><p>高风险动作暂停，等待授权后从同一状态恢复。</p><figure class="variant-diagram"><img src="assets/diagrams/human-in-loop.svg" alt="Human-in-the-Loop（人机协同）拓扑"></figure></article><article class="change-item"><p class="delta">失败后怎样继续</p><h3><span lang="en">Exception Recovery</span><small lang="zh-Hans">异常处理与恢复</small></h3><p>区分重试、回退、升级和终止，避免无限尝试。</p><figure class="variant-diagram"><img src="assets/diagrams/exception-recovery.svg" alt="Exception Handling and Recovery（异常处理与恢复）拓扑"></figure></article><article class="change-item"><p class="delta">怎样获得质量证据</p><h3><span lang="en">Evaluation & Monitoring</span><small lang="zh-Hans">评估与监控</small></h3><p>用轨迹、数据集和评价定位检索、模型、工具或路由问题。</p><figure class="variant-diagram"><img src="assets/diagrams/evaluation-monitoring.svg" alt="Evaluation and Monitoring（评估与监控）拓扑"></figure></article></div><div class="invariant-strip"><b>共同原则</b><span>自治越高，停止、权限、恢复和观测越需要确定性机制。</span></div></section>
+
+    <section class="slide compound-case" data-layer="L3" data-title="Durable Workflow 案例"><div><p class="eyebrow">COMPOUND PATTERN</p><h2 class="pattern-name"><span lang="en">Durable Agent Workflow</span><small lang="zh-Hans">持久 Agent 工作流</small></h2><p class="pattern-claim">跨中断继续执行，需要三种结构组合。</p><div class="compound-stack"><span>Workflow-Centric Hybrid</span><i>＋</i><span>Exception Recovery</span><i>＋</i><span>Memory / Checkpoint</span><i>＝</i><strong>Durable Agent Workflow</strong></div><figure class="compound-diagram"><img src="../atlas/diagrams/durable-agent-workflow.svg" alt="Durable Agent Workflow（持久 Agent 工作流）完整拓扑"></figure></div><article class="case-panel"><p class="case-meta">CASE · 官方开源实现</p><a class="project-credit" href="https://github.com/microsoft/agent-framework" target="_blank" rel="noopener noreferrer" aria-label="打开 Microsoft Agent Framework 官方开源仓库"><img src="assets/projects/microsoft.png" alt="Microsoft 标识"><span>Microsoft Durable Extension<small>github.com/microsoft/agent-framework ↗</small></span></a><h3>跨重启和人工等待恢复审批流程</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>合同或费用审批可能持续数日，期间服务会缩容、部署或故障。</p></div><div class="case-beat"><b>02</b><p>Agent 与工作流被检查点化，支持外部事件、长时等待和 HITL。</p></div><div class="case-beat"><b>03</b><p>运行状态独立于进程生命周期，已完成副作用不会重复。</p></div></div></article></section>
+
+    <section class="slide compound-case" data-layer="L3" data-title="Saga 案例"><div><p class="eyebrow">COMPOUND PATTERN</p><h2 class="pattern-name"><span lang="en">Saga and Compensating Actions</span><small lang="zh-Hans">Saga 与补偿动作</small></h2><p class="pattern-claim">跨系统无法全局回滚，就用业务补偿。</p><div class="compound-stack"><span>Sequential Business Actions</span><i>＋</i><span>Failure Classification</span><i>＋</i><span>Reverse Compensation</span><i>＝</i><strong>Saga & Compensating Actions</strong></div><figure class="compound-diagram"><img src="../atlas/diagrams/saga-compensation.svg" alt="Saga and Compensating Actions（Saga 与补偿动作）完整拓扑"></figure></div><article class="case-panel"><p class="case-meta">CASE · 开源参考实现</p><a class="project-credit" href="https://github.com/temporalio/samples-java" target="_blank" rel="noopener noreferrer" aria-label="打开 Temporal Java Samples 官方开源仓库"><img src="assets/projects/temporal.png" alt="Temporal 标识"><span>Temporal Java Samples<small>github.com/temporalio/samples-java ↗</small></span></a><h3>旅行预订失败后的逆序补偿</h3><div class="case-beats"><div class="case-beat"><b>01</b><p>车辆、酒店和机票各自只有局部事务。</p></div><div class="case-beat"><b>02</b><p>每个成功动作登记 Compensation；后续失败时按逆序取消。</p></div><div class="case-beat"><b>03</b><p>跨系统一致性来自局部提交和可追踪业务补偿。</p></div></div></article></section>
+
+    <section class="slide quiz" data-layer="E" data-title="Enabler 判断互动"><p class="eyebrow">INTERACTION · MECHANISM OR COMPOUND?</p><p class="prompt">一次工具调用失败后自动重试三次。</p><p class="instruction">这是 Exception Recovery、Saga，还是 Durable Agent Workflow？还缺少哪些结构才会升级？</p></section>
+
+    <section class="slide full-visual" data-title="三层组合案例">
+      <div><p class="eyebrow">PUT PATTERNS AND ENABLERS TOGETHER</p><h2 style="max-width:none">一个系统会组合三层 Pattern，并由实现手段支撑。</h2></div>
+      <figure class="visual-frame"><img src="assets/diagrams/enterprise-exception-case.svg" alt="企业异常事件诊断与处置三层 Pattern 与实现手段组合案例"></figure>
+    </section>
+
+    <section class="slide split" data-title="案例复盘">
+      <div><p class="eyebrow">CASE DEBRIEF</p><h2>从责任一路推导到机制。</h2></div>
+      <div class="recipe-list">
+        <div class="recipe"><b style="color:var(--l1)">L1 · Copilot</b><span>业务人员保留最终责任。</span></div>
+        <div class="recipe"><b style="color:var(--l2)">L2 · Workflow + Supervisor</b><span>确定性门禁包住概率性诊断。</span></div>
+        <div class="recipe"><b style="color:var(--l3)">L3 · ReAct + Plan + RAG + HITL</b><span>根据环境反馈推进、检索证据并审批高风险动作。</span></div>
+        <div class="recipe"><b style="color:var(--enabler)">ENABLERS · Context + MCP + Trace / Evals</b><span>组装上下文、连接能力并提供运行证据。</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="四个决策问题" style="grid-template-rows:auto minmax(0,1fr);gap:1.5rem">
+      <div><p class="eyebrow">DECISION FRAME</p><h2 style="max-width:none">选 Pattern，从四个问题开始。</h2></div>
+      <div class="decision-list">
+        <div class="decision"><b>01</b><div><strong>谁拥有最终目标与失败责任？</strong><p>先确定 L1 的人机关系。</p></div></div>
+        <div class="decision"><b>02</b><div><strong>谁决定下一步，控制权是否转移？</strong><p>一次分派、持续协调，还是接管？</p></div></div>
+        <div class="decision"><b>03</b><div><strong>哪些状态共享，哪些上下文隔离？</strong><p>这决定是否值得增加 Agent 边界。</p></div></div>
+        <div class="decision"><b>04</b><div><strong>不用更高自治结构，具体损失是什么？</strong><p>没有明确收益，就保留更小结构。</p></div></div>
+      </div>
+    </section>
+
+    <section class="slide closing" data-title="总结">
+      <div><p class="eyebrow" style="color:#cbd3d7">THE TAKEAWAY</p><h2>先问层级，<br>再看结构，<br>最后组合。</h2><p class="lead">选择满足目标的最小自治、最小协调结构。</p></div>
+      <div class="exit-ticket">
+        <p><b>01</b> 一个你现在能正确归层的 Pattern</p>
+        <p><b>02</b> 一个你能解释的 Common–Variant 关系</p>
+        <p><b>03</b> 一个你不会再误判为 Variant 的 Compound Pattern</p>
+      </div>
+      <div class="layer-stripes" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </section>
+
+  </main>
+
+  <nav class="deck-ui" aria-label="演示控制">
+    <button id="prev" type="button" aria-label="上一页">←</button>
+    <output id="slide-counter" aria-live="polite">01 / 01</output>
+    <button id="next" type="button" aria-label="下一页">→</button>
+    <button id="fullscreen" type="button" aria-label="全屏">⛶</button>
+  </nav>
+  <script src="deck.js"></script>
+</body>
+</html>

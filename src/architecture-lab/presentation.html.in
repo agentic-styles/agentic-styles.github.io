@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#172331">
+  <title>Agentic Architecture Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="deck" aria-live="polite"></main>
+
+  <nav class="controls" aria-label="幻灯片控制">
+    <button id="prev" type="button" aria-label="上一页">←</button>
+    <output id="slide-counter">01 / 71</output>
+    <button id="next" type="button" aria-label="下一页">→</button>
+    <span class="control-rule" aria-hidden="true"></span>
+    <button id="optional" type="button" aria-pressed="true" title="切换 Optional Detail">DETAIL ON</button>
+    <button id="notes" type="button" aria-pressed="false" title="讲师备注 (N)">NOTES</button>
+    <button id="overview" type="button" aria-pressed="false" title="总览 (O)">GRID</button>
+    <button id="fullscreen" type="button" title="全屏 (F)">FULL</button>
+  </nav>
+  <div class="progress" aria-hidden="true"></div>
+  <aside class="notes-drawer" aria-label="讲师备注"><div class="notes-head"><b>INSTRUCTOR NOTES</b><button type="button" id="close-notes">×</button></div><div id="notes-copy"></div></aside>
+
+  <script src="slides.js"></script>
+  <script src="deck.js"></script>
+</body>
+</html>

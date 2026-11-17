@@ -1,0 +1,73 @@
+name: Build and deploy Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Install browser, PDF tools and CJK fonts
+        run: |
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils fonts-noto-cjk
+      - name: Build source and templates
+        run: python3 scripts/build_site.py
+      - name: Test historical artifact policy
+        run: python3 -m unittest discover -s tests
+      - name: Check links and source-only Git history
+        run: python3 scripts/check_site.py --before-pdf
+      - name: Browser checks and PDF export
+        run: npm run qa
+      - name: Check downloadable artifacts
+        run: python3 scripts/check_site.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-and-qa
+          path: |
+            dist/
+            .qa/
+          include-hidden-files: true
+          retention-days: 14
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

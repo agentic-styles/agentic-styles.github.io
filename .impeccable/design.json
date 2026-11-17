@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-12T21:25:00+08:00",
+  "title": "Design System: Agentic Pattern Atlas",
+  "extensions": {
+    "colorMeta": {
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "暖编辑纸",
+        "canonical": "#f4f0e7",
+        "tonalRamp": ["#28251f", "#4c473d", "#716b5e", "#989184", "#bbb4a8", "#d7d1c6", "#eee9df", "#fbf8f1"]
+      },
+      "clear-paper": {
+        "role": "neutral",
+        "displayName": "清晰纸白",
+        "canonical": "#fbf8f1",
+        "tonalRamp": ["#292721", "#4e4a41", "#746f64", "#9b958a", "#beb8ad", "#dbd5ca", "#f1ece3", "#fbf8f1"]
+      },
+      "deep-ink": {
+        "role": "primary",
+        "displayName": "深墨蓝黑",
+        "canonical": "#172331",
+        "tonalRamp": ["#0d141c", "#172331", "#2c3b4b", "#465768", "#667788", "#91a0ad", "#c2ccd3", "#edf1f3"]
+      },
+      "annotation-slate": {
+        "role": "neutral",
+        "displayName": "批注灰",
+        "canonical": "#5a6671",
+        "tonalRamp": ["#15191d", "#2b3238", "#414b54", "#5a6671", "#798590", "#9ca6ae", "#c4cbd0", "#edf0f2"]
+      },
+      "quiet-rule": {
+        "role": "neutral",
+        "displayName": "安静规则",
+        "canonical": "#c8c4bb",
+        "tonalRamp": ["#23211d", "#46423b", "#69645b", "#8d877d", "#aaa49a", "#c8c4bb", "#e2ded6", "#f7f4ee"]
+      },
+      "field-note": {
+        "role": "neutral",
+        "displayName": "现场笔记纸",
+        "canonical": "#e9e4da",
+        "tonalRamp": ["#28251f", "#504b42", "#797268", "#a29b90", "#c2bcb1", "#d8d2c8", "#e9e4da", "#faf7f0"]
+      },
+      "decision-wash": {
+        "role": "neutral",
+        "displayName": "决策淡纸",
+        "canonical": "#e5dfd2",
+        "tonalRamp": ["#28241e", "#50483d", "#786e60", "#a09587", "#beb6a8", "#d5cec0", "#e5dfd2", "#f8f5ee"]
+      },
+      "l1-responsibility": {
+        "role": "secondary",
+        "displayName": "L1 责任陶土",
+        "canonical": "#b5472d",
+        "tonalRamp": ["#2b100a", "#512016", "#762f20", "#9b3d29", "#b9583f", "#d0816d", "#e6b5a8", "#f8e8e3"]
+      },
+      "l2-orchestration": {
+        "role": "secondary",
+        "displayName": "L2 编排青绿",
+        "canonical": "#1c6e67",
+        "tonalRamp": ["#071d1b", "#0d3733", "#14514c", "#1c6e67", "#3e8d86", "#70afa9", "#acd3cf", "#e4f1ef"]
+      },
+      "l3-cognition": {
+        "role": "secondary",
+        "displayName": "L3 认知蓝",
+        "canonical": "#315ea8",
+        "tonalRamp": ["#0c1729", "#172d51", "#234478", "#315ea8", "#537cbc", "#82a1d1", "#b8cae6", "#e8eef8"]
+      },
+      "implementation-enabler": {
+        "role": "secondary",
+        "displayName": "实现手段赭金",
+        "canonical": "#896b24",
+        "tonalRamp": ["#211a08", "#403211", "#614c19", "#896b24", "#a78a45", "#c2aa70", "#ddcca8", "#f3ead5"]
+      },
+      "focus-amber": {
+        "role": "tertiary",
+        "displayName": "焦点琥珀",
+        "canonical": "#d88b43",
+        "tonalRamp": ["#311c08", "#5c3613", "#87511f", "#b56c2e", "#d88b43", "#e6aa70", "#f0cda8", "#faeedf"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editorial Display",
+        "purpose": "Hero、Level 编号与单一强结论。"
+      },
+      "headline": {
+        "displayName": "Architecture Headline",
+        "purpose": "章节、Pattern 与分类组标题。"
+      },
+      "title": {
+        "displayName": "Evidence Title",
+        "purpose": "案例和局部模块标题。"
+      },
+      "body": {
+        "displayName": "Explanatory Body",
+        "purpose": "长篇解释、案例、适用信号与权衡。"
+      },
+      "label": {
+        "displayName": "Field Annotation",
+        "purpose": "Level、来源、角色、筛选和短标签。"
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "document-scroll",
+        "value": "scroll-behavior: smooth",
+        "purpose": "仅用于长文档锚点跳转；reduced-motion 时必须关闭。"
+      },
+      {
+        "name": "reduced-motion",
+        "value": "scroll-behavior: auto",
+        "purpose": "尊重 prefers-reduced-motion，禁止非必要平滑移动。"
+      }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "560px" },
+      { "name": "taxonomy-phone", "value": "700px" },
+      { "name": "compact", "value": "760px" },
+      { "name": "case-stack", "value": "820px" },
+      { "name": "single-column", "value": "900px" },
+      { "name": "two-column", "value": "1000px" },
+      { "name": "diagram-viewport", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Selected Filter Button",
+      "kind": "button",
+      "refersTo": "filter-button-selected",
+      "description": "当前 Level 或筛选状态，使用深墨反转表示选中。",
+      "html": "<button class=\"ds-filter-selected\" aria-pressed=\"true\">L2</button>",
+      "css": ".ds-filter-selected{border:1px solid #172331;background:#172331;color:#fbf8f1;padding:.55rem .7rem;border-radius:0;font:800 .68rem/1.35 'Avenir Next','PingFang SC',sans-serif;letter-spacing:.08em;cursor:pointer}.ds-filter-selected:hover{background:#2c3b4b}.ds-filter-selected:focus-visible{outline:3px solid #d88b43;outline-offset:4px}"
+    },
+    {
+      "name": "Unselected Filter Button",
+      "kind": "button",
+      "refersTo": "filter-button",
+      "description": "未选中的 Level 或筛选控制，保持纸面和细边框。",
+      "html": "<button class=\"ds-filter\" aria-pressed=\"false\">L3</button>",
+      "css": ".ds-filter{border:1px solid #c8c4bb;background:#fbf8f1;color:#172331;padding:.55rem .7rem;border-radius:0;font:800 .68rem/1.35 'Avenir Next','PingFang SC',sans-serif;letter-spacing:.08em;cursor:pointer}.ds-filter:hover{border-color:#172331}.ds-filter:focus-visible{outline:3px solid #d88b43;outline-offset:4px}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "图鉴与分类页的关键词入口。",
+      "html": "<label class=\"ds-field-label\" for=\"ds-search\">查找 Pattern</label><input class=\"ds-search\" id=\"ds-search\" type=\"search\" placeholder=\"输入名称、意图或角色\">",
+      "css": ".ds-field-label{display:block;margin-bottom:.35rem;color:#172331;font:800 .68rem/1.35 'Avenir Next','PingFang SC',sans-serif}.ds-search{box-sizing:border-box;width:100%;min-height:2.8rem;padding:.75rem .9rem;border:1px solid #172331;border-radius:0;background:#f4f0e7;color:#172331;font:400 16px/1.5 'Avenir Next','PingFang SC',sans-serif}.ds-search::placeholder{color:#5a6671}.ds-search:focus-visible{outline:3px solid #d88b43;outline-offset:4px}"
+    },
+    {
+      "name": "Taxonomy Badge",
+      "kind": "chip",
+      "refersTo": "taxonomy-badge",
+      "description": "从完整图鉴进入正交分类视图的低干扰索引。",
+      "html": "<a class=\"ds-taxonomy-badge\" href=\"#\"><span>TAXONOMY</span>中央调度与委派</a>",
+      "css": ".ds-taxonomy-badge{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .55rem;border:1px solid #c8c4bb;border-radius:0;background:#fbf8f1;color:#172331;text-decoration:none;font:750 .68rem/1.35 'Avenir Next','PingFang SC',sans-serif}.ds-taxonomy-badge span{color:#5a6671;font-size:.5rem;letter-spacing:.09em}.ds-taxonomy-badge:hover{border-color:#172331}.ds-taxonomy-badge:focus-visible{outline:3px solid #d88b43;outline-offset:4px}"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "深墨背景上的站点标识、页面 Tab 与明确的当前态。",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-mark\" href=\"#\">AP / ATLAS</a><div><a href=\"#\">文章主线</a><a class=\"ds-current\" href=\"#\">完整图鉴</a><a href=\"#\">分类浏览</a></div></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;gap:2rem;min-height:4rem;padding:.65rem 1.2rem;background:#172331;color:#fbf8f1}.ds-nav a{color:#cbd3d7;text-decoration:none;font:700 .75rem/1.4 'Avenir Next','PingFang SC',sans-serif}.ds-nav div{display:flex;gap:1.3rem}.ds-nav .ds-mark{color:#fbf8f1;font:800 1.1rem/1.2 'Iowan Old Style','Songti SC',serif}.ds-nav .ds-current{color:#fbf8f1;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.2em}.ds-nav a:focus-visible{outline:3px solid #d88b43;outline-offset:4px}"
+    },
+    {
+      "name": "Pattern Lineage",
+      "kind": "custom",
+      "description": "Common、Variant 与 Compound 关系的批注式说明条。",
+      "html": "<aside class=\"ds-lineage\"><span>VARIANT</span><div><b>COMMON PATTERN</b><a href=\"#\">监督者-专家 · Supervisor-Specialist</a></div></aside>",
+      "css": ".ds-lineage{display:grid;grid-template-columns:minmax(9rem,.32fr) minmax(18rem,1.68fr);gap:2rem;padding:1rem 0;border-top:1px solid #172331;border-bottom:1px solid #c8c4bb;color:#172331}.ds-lineage>span,.ds-lineage b{font:850 .62rem/1.45 'Avenir Next','PingFang SC',sans-serif;letter-spacing:.12em}.ds-lineage div{display:flex;flex-wrap:wrap;gap:.35rem 1rem}.ds-lineage b{width:100%;color:#5a6671}.ds-lineage a{color:#172331;font:750 .9rem/1.4 'Iowan Old Style','Songti SC',serif}.ds-lineage a:focus-visible{outline:3px solid #d88b43;outline-offset:4px}"
+    },
+    {
+      "name": "Case Study Block",
+      "kind": "custom",
+      "description": "用项目场景、Pattern 映射与适合原因构成三段式证据。",
+      "html": "<article class=\"ds-case\"><header><span>CASE · OPEN SOURCE</span><h3>一个真实项目如何使用这个 Pattern</h3></header><div><section><b>项目场景</b><p>描述现实约束和触发条件。</p></section><section><b>PATTERN 如何出现</b><p>指出参与者、责任与控制关系。</p></section><section><b>为什么适合</b><p>说明收益、代价和适用边界。</p></section></div></article>",
+      "css": ".ds-case{padding:1.4rem;border-top:2px solid #172331;border-bottom:1px solid #172331;background:#e9e4da;color:#172331}.ds-case header{padding-bottom:1rem;border-bottom:1px solid #c8c4bb}.ds-case header span,.ds-case b{font:850 .66rem/1.35 'Avenir Next','PingFang SC',sans-serif;letter-spacing:.1em}.ds-case h3{margin:.4rem 0 0;font:700 1.7rem/1.1 'Iowan Old Style','Songti SC',serif}.ds-case>div{display:grid;grid-template-columns:repeat(3,1fr)}.ds-case section{padding:1.1rem}.ds-case section+section{border-left:1px solid #c8c4bb}.ds-case p{margin:.45rem 0 0;font:400 .8rem/1.65 'Avenir Next','PingFang SC',sans-serif}"
+    }
+  ],
+  "narrative": {
+    "northStar": "架构现场手册",
+    "overview": "这套设计像一本在架构评审现场摊开的技术手册：暖纸承载长时间阅读，深墨建立判断的重量，色彩只在需要区分 System of Interest 或关系语义时出现。它的气质是严谨、清醒、具象；结构证据先于装饰，批注和索引先于营销话术。页面以严格网格、非对称比例、细规则和大幅留白组织密集内容。桌面端服务 16:9 课程讲解，窄屏通过重排与局部横向浏览保留拓扑细节，打印版必须保留内容、案例和来源。系统明确拒绝通用 SaaS 卡片墙、霓虹 AI 视觉、渐变、玻璃拟态，以及只画箭头却不表达控制权和责任边界的伪架构图。",
+    "keyCharacteristics": [
+      "暖纸、深墨、低饱和三层 Pattern 信号色与独立的实现手段标识。",
+      "Serif 承担概念与判断，Sans 承担说明、索引和控制。",
+      "以规则线、色块和空间层级取代阴影。",
+      "图形同时编码控制、数据、异步与反馈，颜色从不单独承担含义。",
+      "导航、筛选、窄屏和打印都属于核心体验，不是附加适配。"
+    ],
+    "rules": [
+      { "name": "The Semantic Color Rule", "body": "L1 至 L3 色彩必须回答“当前是哪个 System of Interest”；赭金只回答“这是实现手段而非 Pattern”，禁止用于无语义装饰。", "section": "colors" },
+      { "name": "The Ink and Paper Rule", "body": "任一常规页面都应由暖纸和深墨主导；如果信号色占据大多数内容面，说明颜色已经越权。", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Serif 负责“这是什么与为何重要”，Sans 负责“如何读、如何找与如何操作”；禁止用展示字体承载长段正文。", "section": "typography" },
+      { "name": "The Screen Share Rule", "body": "任何关键结论在 16:9 共享屏幕上都必须一眼可读；缩小字号不能作为解决信息过载的手段。", "section": "typography" },
+      { "name": "The Structural Flatness Rule", "body": "静止表面必须保持平面；需要强调时使用完整背景、规则线或空间分隔，禁止用悬浮阴影伪造层级。", "section": "elevation" },
+      { "name": "The Rule Weight Rule", "body": "1px 表示分隔，2px 表示章节或组的开始，3px 只用于键盘焦点或极少数 Pattern 证据线。", "section": "elevation" }
+    ],
+    "dos": [
+      "Do 先用 Level、责任、控制、状态和关系语义建立结构，再添加 Pattern 名称。",
+      "Do 使用暖编辑纸、清晰纸白和深墨作为主要阅读表面，并把 L1 至 L3 色彩限制在 Pattern 层级语义中，把赭金限制在实现手段标识中。",
+      "Do 让来源原名、规范化命名和本文归纳在视觉上可区分。",
+      "Do 为图形提供可搜索文字、标题、描述和替代文本，并同时使用线型、标签与颜色表达关系。",
+      "Do 保持键盘焦点、窄屏横向拓扑、打印版和离线版内容完整。",
+      "Do 用留白和规则线分组；1px 用于分隔，2px 用于明确开始。"
+    ],
+    "donts": [
+      "Don't 使用“通用 SaaS 卡片墙和重复的图标、标题、说明模板”。",
+      "Don't 使用“霓虹、渐变、玻璃拟态等缺乏架构语义的 AI 感装饰”。",
+      "Don't 把 Protocol、Technology 或 Prompt Technique 冒充 Architecture Pattern。",
+      "Don't 只画箭头却不说明控制权、状态、责任和终止条件。",
+      "Don't 为追求信息密度而牺牲窄屏、打印、键盘浏览或文字可读性。",
+      "Don't 使用大于 1px 的彩色左侧或右侧条纹作为卡片强调；使用完整背景、规则线或编号。",
+      "Don't 用阴影、圆角胶囊和动效制造不具备语义的层级。"
+    ]
+  }
+}
