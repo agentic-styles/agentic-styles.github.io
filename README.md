@@ -5,7 +5,7 @@
 ## 在线阅读
 
 - [站点首页](https://agentic-styles.github.io/)
-- [图鉴文章](https://agentic-styles.github.io/atlas/)
+- [分类、组合与选择：说明文章](https://agentic-styles.github.io/atlas/)
 - [完整图鉴](https://agentic-styles.github.io/atlas/atlas.html)
 - [分类浏览](https://agentic-styles.github.io/atlas/taxonomy.html)
 - [Pattern 基础课](https://agentic-styles.github.io/course/)
@@ -26,7 +26,7 @@ scripts/                 构建、链接检查、浏览器检查与 PDF 导出
 .github/workflows/        GitHub Actions → GitHub Pages
 ```
 
-`.html.in` 是人工维护的课程源码模板，不是预生成页面。图鉴 HTML、SVG、JSON、standalone 文件、PDF、截图和 QA 报告在构建时生成；它们不进入 Git，也不创建 `gh-pages` 制品分支。
+`.html.in` 是人工维护的课程源码模板，不是预生成页面。说明文章与图鉴 HTML、SVG、JSON、standalone 文件、PDF、截图和 QA 报告在构建时生成；它们不进入 Git，也不创建 `gh-pages` 制品分支。
 
 ## 本地构建
 
