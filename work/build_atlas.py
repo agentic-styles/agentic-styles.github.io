@@ -19,6 +19,11 @@ from blog_content import (
     READING_PATHS,
     SELECTED_SOURCE_IDS,
 )
+from article_sections import (
+    TABLE_OF_CONTENTS, INTRO, CLASSIFICATION, LEVELS, ENABLERS, CASE,
+    COMPARISONS_INTRO, COMPARISONS_ADAPTIVE, COMPARISONS_LIFECYCLE,
+    DECISION, CONCLUSION, METHOD, ARTICLE_CSS,
+)
 from pattern_organization import organized_layer_patterns
 from pattern_taxonomy import TAXONOMY_GROUPS
 
@@ -903,7 +908,7 @@ def render_head(title, description, path, schema_type="TechArticle", script_name
 
 def site_nav(active):
     links = [
-        ("article", "index.html", "文章主线"),
+        ("article", "index.html", "说明文章"),
         ("atlas", "atlas.html", "完整图鉴"),
         ("taxonomy", "taxonomy.html", "分类浏览"),
         ("sources", "atlas.html#coverage", "覆盖与来源"),
@@ -945,7 +950,7 @@ def render_case_study_svg():
 
 
 def render_social_card_svg():
-    return f'''<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="{PALETTE['ink']}"/><circle cx="1085" cy="-40" r="320" fill="none" stroke="#ffffff18" stroke-width="2"/><circle cx="1085" cy="-40" r="245" fill="none" stroke="#ffffff10" stroke-width="55"/><text x="72" y="80" font-family="Avenir Next, PingFang SC, sans-serif" font-size="17" font-weight="750" letter-spacing="3" fill="#c9d1d5">AGENTIC PATTERN ATLAS · 2026</text><text x="72" y="205" font-family="Iowan Old Style, Songti SC, serif" font-size="72" font-weight="700" fill="{PALETTE['paper2']}">先看见结构，再谈论 Pattern</text><text x="72" y="285" font-family="Iowan Old Style, Songti SC, serif" font-size="46" font-weight="700" fill="{PALETTE['paper2']}">Agentic AI 三层 Pattern 视觉图鉴</text><text x="72" y="350" font-family="Avenir Next, PingFang SC, sans-serif" font-size="24" fill="#cad2d6">Application · Architecture · Design，另列实现手段</text><g font-family="Avenir Next, PingFang SC, sans-serif" font-size="18" font-weight="750"><rect x="72" y="480" width="264" height="72" fill="{LAYER_META['L1']['color']}"/><text x="94" y="524" fill="{PALETTE['paper2']}">L1 · Application</text><rect x="336" y="480" width="264" height="72" fill="{LAYER_META['L2']['color']}"/><text x="358" y="524" fill="{PALETTE['paper2']}">L2 · Architecture</text><rect x="600" y="480" width="264" height="72" fill="{LAYER_META['L3']['color']}"/><text x="622" y="524" fill="{PALETTE['paper2']}">L3 · Design</text><rect x="864" y="480" width="264" height="72" fill="#2b3540" stroke="{ENABLER_META['color']}" stroke-width="2"/><text x="886" y="524" fill="#dfc98d">ENABLERS</text></g></svg>'''
+    return f'''<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="{PALETTE['ink']}"/><circle cx="1085" cy="-40" r="320" fill="none" stroke="#ffffff18" stroke-width="2"/><circle cx="1085" cy="-40" r="245" fill="none" stroke="#ffffff10" stroke-width="55"/><text x="72" y="80" font-family="Avenir Next, PingFang SC, sans-serif" font-size="17" font-weight="750" letter-spacing="3" fill="#c9d1d5">AGENTIC PATTERN ATLAS · 2026</text><text x="72" y="205" font-family="Iowan Old Style, Songti SC, serif" font-size="59" font-weight="700" fill="{PALETTE['paper2']}">Agentic AI 系统中的 Pattern</text><text x="72" y="285" font-family="Iowan Old Style, Songti SC, serif" font-size="39" font-weight="700" fill="{PALETTE['paper2']}">分类、组合与选择 · 三层分析框架</text><text x="72" y="350" font-family="Avenir Next, PingFang SC, sans-serif" font-size="24" fill="#cad2d6">Application · Architecture · Design，另列实现手段</text><g font-family="Avenir Next, PingFang SC, sans-serif" font-size="18" font-weight="750"><rect x="72" y="480" width="264" height="72" fill="{LAYER_META['L1']['color']}"/><text x="94" y="524" fill="{PALETTE['paper2']}">L1 · Application</text><rect x="336" y="480" width="264" height="72" fill="{LAYER_META['L2']['color']}"/><text x="358" y="524" fill="{PALETTE['paper2']}">L2 · Architecture</text><rect x="600" y="480" width="264" height="72" fill="{LAYER_META['L3']['color']}"/><text x="622" y="524" fill="{PALETTE['paper2']}">L3 · Design</text><rect x="864" y="480" width="264" height="72" fill="#2b3540" stroke="{ENABLER_META['color']}" stroke-width="2"/><text x="886" y="524" fill="#dfc98d">ENABLERS</text></g></svg>'''
 
 
 def reference_items(source_ids):
@@ -961,34 +966,132 @@ def render_comparison(comparison):
     return f'''<section class="comparison-block" id="{esc(comparison['id'])}"><header><h3>{esc(comparison['title'])}</h3><p>{esc(comparison['lead'])}</p></header><div class="comparison-wrap" tabindex="0" role="region" aria-label="{esc(comparison['title'])}比较表"><table class="comparison-table"><caption class="visually-hidden">{esc(comparison['title'])}</caption><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div><p class="comparison-summary">{esc(comparison['summary'])}</p></section>'''
 
 
+CSS += ARTICLE_CSS
+
+
 def render_blog():
-    by_id = {p["id"]: p for p in PATTERNS}
-    entry_count = len(PATTERNS)
     pattern_count = sum(p["catalog_type"] == "pattern" for p in PATTERNS)
-    enabler_count = entry_count - pattern_count
-    anchor_count = len(ANCHOR_IDS)
-    comparison_count = len(COMPARISONS)
-    paths = "".join(f'<a class="reading-path" href="{href}"><strong>{esc(title)}</strong><span>{esc(detail)}</span></a>' for title, detail, href in READING_PATHS)
-    case_rows = "".join(f'<article><b>{esc(step["layer"])}</b><small>{esc(step["question"])}</small><strong>{esc(step["choice"])}</strong><p>{esc(step["reason"])}</p></article>' for step in CASE_STEPS)
-    anchors = "".join(f'<li><a href="atlas.html#{p["id"]}"><span class="anchor-layer">{"ENABLER" if p["catalog_type"] == "enabler" else p["layer"]}</span><strong>{bilingual_name(p)}</strong><p>{esc(p["intent"])}</p><em>{esc(p["provenance"])}</em></a></li>' for p in (by_id[i] for i in ANCHOR_IDS))
-    decisions = "".join(f'<article><b>{n}</b><h3>{esc(q)}</h3><p>{esc(answer)}</p></article>' for n, q, answer in DECISION_QUESTIONS)
+    enabler_count = len(PATTERNS) - pattern_count
+    comparisons = {c["id"]: c for c in COMPARISONS}
     published = f'<time datetime="{BLOG["published"]}">{BLOG["published"]}</time>'
-    return f'''<!doctype html><html lang="zh-Hans">{render_head(BLOG['title'], BLOG['description'], 'index.html')}
-<body class="blog-page"><a class="skip-link" href="#main">跳到正文</a>{site_nav('article')}
-<header class="hero"><div class="hero-grid"><div class="edition">FIELD GUIDE · {BLOG['version']}</div><div class="hero-copy"><p class="eyebrow">Agentic AI 应用架构模式</p><h1>先看见结构，<br>再谈论 Pattern。<small>Agentic AI 三层 Pattern 视觉图鉴</small></h1><p class="deck">{esc(BLOG['subtitle'])}</p><div class="article-meta"><span>{esc(BLOG['author'])}</span><span>{published}</span><span>{esc(BLOG['reading_time'])}</span><span>{pattern_count} Pattern + {enabler_count} Enablers</span></div><div class="hero-actions"><a href="#problem">开始阅读</a><a href="atlas.html">打开完整图鉴</a></div></div><div class="hero-index"><a href="#map"><b>01</b><span>三层地图</span><em>3L</em></a><a href="#case"><b>02</b><span>组合示例</span><em>1</em></a><a href="#comparisons"><b>03</b><span>关键比较</span><em>{comparison_count}</em></a><a href="atlas.html"><b>04</b><span>完整图鉴</span><em>{entry_count}</em></a></div></div><div class="hero-rule"><span>Application</span><span>Architecture</span><span>Design</span><span>Enablers</span></div></header>
-<main id="main">
-<section class="reading-paths" aria-labelledby="reading-title"><header><p class="eyebrow">选择阅读深度</p><h2 id="reading-title">从主线进入，按需下钻。</h2></header>{paths}</section>
-<section class="content-section problem-section" id="problem"><div class="chapter-mark"><span>01</span><div><h2>这是一个无法正确回答的四选一。</h2><p>为企业异常事件诊断与处置助手选架构时，人们常问：应该用 ReAct、Multi-Agent、RAG，还是 MCP？问题本身混合了 Pattern 层级与实现手段。</p></div></div><div class="problem-grid"><p class="impossible-question">ReAct、Multi-Agent、RAG 和 MCP 可以同时存在于同一个系统，它们不是互斥选项。</p><div class="wrong-choice"><b>四个词分别回答什么</b><p>先辨认问题类型，才可能讨论选择。</p><div class="four-answers"><div><strong>ReAct</strong><span>一个 Agent 怎样决定下一步</span></div><div><strong>Multi-Agent</strong><span>多个自治单元怎样组织</span></div><div><strong>RAG</strong><span>知识检索怎样进入生成结构</span></div><div><strong>MCP</strong><span>Agent Host 怎样连接外部能力</span></div></div></div></div><ol class="thesis-list"><li>Pattern 分类应跟随目标所有权、控制权、自治边界、状态和协作关系，而不是部署单元。</li><li>不同层级的 Pattern 是组合关系，不是竞争关系。</li><li>协议、技术和工程实践可以实现 Pattern，却不能替代结构决策。</li><li>默认选择满足目标的最小自治与最小协调结构。</li></ol></section>
-<section class="content-section map-section" id="map"><div class="chapter-mark"><span>02</span><div><h2>先确定 System of Interest。</h2><p>三个 Pattern 层级回答不同尺度的结构问题；实现手段则横向支撑这些结构，不再被包装成第四层。</p></div></div><div class="map-layout"><div><div class="diagnostic-questions"><div><b>L1</b><span>Agent 在业务责任体系中处于什么位置？</span></div><div><b>L2</b><span>一个或多个 Agent 如何组织和分配控制权？</span></div><div><b>L3</b><span>Agent 与局部控制结构如何完成决策和行动？</span></div><div><b>TOOLS</b><span>哪些技术、协议、格式与实践支撑这些 Pattern？</span></div></div><p>判断 Pattern 前，先问：这一刻我们把什么当作完整系统？</p></div><figure class="diagram-viewport" tabindex="0" role="region" aria-label="三层 Pattern 与实现手段地图">{diagram_img('three-level-pattern-map', '三层 Pattern 地图：Application、Architecture、Design，以及独立的实现手段目录', True)}<figcaption>前三项是 Pattern 层级；Enablers 是可跨层复用和替换的实现手段。</figcaption></figure></div></section>
-<section class="taxonomy"><p class="section-label">分类边界</p><h2>三层 Pattern，一组独立的实现手段。</h2><div class="taxonomy-grid"><div><b>Application Pattern</b><p>定义 Agent 与人在业务责任体系中的相对位置。</p><small>Copilot · Front Door · Autonomous Worker</small></div><div><b>Architecture Pattern</b><p>改变多个自治单元的责任分配、控制权和系统结构。</p><small>Supervisor · Handoff · Workflow-Centric</small></div><div><b>Design Pattern</b><p>在既定系统边界内组织 Agent 决策、行动和局部控制流。</p><small>ReAct · Prompt Chaining · RAG</small></div><div><b>Techniques / Protocols / Practices</b><p>提供实现方法、连接契约或工程保障，本身不构成第四层 Pattern。</p><small>Context · Memory · MCP · A2A · Evals</small></div></div></section>
-<section class="case-section" id="case"><div class="chapter-mark"><span>03</span><div><h2>一个企业异常处置示例，组合三层 Pattern 与实现手段。</h2><p>某笔订单的状态、履约记录与客户反馈互相矛盾。系统需要查询业务记录、相关系统和处置规则，形成原因假设并给出方案；退款、状态变更或外部通知必须由业务人员审批。</p></div></div><p class="case-brief">这里没有“一个最佳 Pattern”：三个 System of Interest 分别做出结构决定，再由实现手段支撑。</p><figure class="case-figure diagram-viewport" tabindex="0" role="region" aria-label="企业异常事件诊断与处置三层 Pattern 组合图">{diagram_img('enterprise-exception-case', '企业异常事件诊断与处置的三层 Pattern 与实现手段组合', True)}<figcaption>从业务责任到系统控制和 Agent 设计，三个层级构成结构；Context、MCP 与评估等手段支撑实现。</figcaption></figure><div class="case-grid">{case_rows}</div><p class="case-conclusion">Copilot 定义人机责任；Workflow 与 Supervisor 定义系统控制权；ReAct、RAG 与 HITL 定义局部设计；Context、MCP 与 Trace / Evals 提供实现支撑。</p><a class="skip-to-conclusion" href="#conclusion">已理解三层组合？跳到结论，完成 5 分钟速读 →</a></section>
-<section class="anchor-section" id="anchors"><div class="chapter-mark"><span>04</span><div><h2>先记住这 {anchor_count} 个锚点。</h2><p>它们不是完整清单，而是一组可以支撑主叙事的坐标。点击任一条目进入完整视觉图鉴。</p></div></div><ol class="anchor-index">{anchors}</ol></section>
-<section class="comparisons" id="comparisons"><div class="chapter-mark"><span>05</span><div><h2>相似拓扑，可能拥有完全不同的控制语义。</h2><p>以下 {comparison_count} 组比较围绕控制权、Agent 身份、生命周期、通信方式和结果回收展开。</p></div></div>{''.join(render_comparison(c) for c in COMPARISONS)}</section>
-<section class="decision-section" id="decision"><div class="chapter-mark"><span>06</span><div><h2>选择 Pattern，从四个问题开始。</h2><p>架构不是按流行度点菜，而是对业务责任、控制权、状态和质量属性做出可解释的取舍。</p></div></div><div class="decision-grid">{decisions}</div><p class="default-rule">默认原则：选择能够满足目标的最小自治、最小协调结构。每增加一层自治，都同步增加停止条件、权限边界、恢复、评估和可观测设计。</p></section>
-<section class="tradeoffs" id="tradeoffs"><p class="section-label">选择原则</p><h2>Architecture is about trade-offs.</h2><div class="tradeoff-line"><span>Autonomy</span><span>Safety</span><span>Reliability</span><span>Latency</span><span>Cost</span><span>Observability</span><span>Maintainability</span></div><p>没有抽象意义上的最佳 Pattern。Pattern 选择必须回应业务重要性、技术难度、失败代价和约束条件；高自主性通常同时放大权限、安全、恢复、成本与可观测性要求。</p></section>
-<section class="conclusion-section" id="conclusion"><div class="chapter-mark"><span>07</span><div><h2>先问层级，再问 Pattern。</h2></div></div><div class="conclusion-copy"><p>Agentic 架构不应从“要不要 Multi-Agent”开始，而应从“此刻谁是 System of Interest”开始。先在 L1 明确人与 Agent 的业务责任，再在 L2 决定控制权和协作拓扑，在 L3 选择 Agent 的决策、行动与局部控制结构；确定结构后，再配置上下文、记忆、协议、安全和可观测等实现手段。</p><p>ReAct 不能替代 Supervisor，MCP 不能替代 Handoff，RAG 也不能回答谁拥有业务责任。前两者分别属于 Design 与 Architecture Pattern，MCP 则是可被多种结构复用的协议。</p></div><div class="atlas-cta"><div><strong>继续下钻</strong><p>完整图鉴包含 {pattern_count} 个 Pattern 与 {enabler_count} 个 Enabler，共 {entry_count} 个条目；每项均包含拓扑、适用条件、权衡、文字案例和精确出处。</p></div><a href="atlas.html">打开完整图鉴 →</a></div></section>
-<section class="method-section" id="method"><div class="chapter-mark"><span>08</span><div><h2>方法、来源与引用边界。</h2><p>本文提供一种分析框架，不宣称是行业唯一分类法。原资料称谓与本文分类判断始终并列保留。</p></div></div><div class="method-grid"><article><b>分类声明</b><p>本文按 System of Interest、目标所有权、自治边界、控制权、状态和协作关系重组来源。</p></article><article><b>来源标记</b><p>“来源原名”保留原称谓；“规范化命名”统一来源中的模式族；“本文归纳”明确表示综合性命名。</p></article><article><b>图形声明</b><p>所有拓扑均为本文依据来源重新绘制的静态解释图，不复制来源插图，也不表示部署边界。</p></article><article><b>版本</b><p>版本 {BLOG['version']}，发布于 {BLOG['published']}。来源可能更新，协议细节以各自正式规范为准。</p></article></div><p>ISO/IEC/IEEE 42010:2022 使用更一般的 Entity of Interest。本文聚焦软件与 Agentic 系统，沿用 System of Interest 作为便于分析和讨论的术语；L1 至 L3 与 Enablers 的划分是本文综合框架，并非该标准规定的层级。</p><p>来源引用主要支持模式名称、参与者和结构描述；各条目的适用信号、优势、代价、易混淆项及跨层影响，除非另有说明，均为本文综合分析。</p><p>《Agentic Design Patterns》统一引用 Springer 2025 年第一版和 DOI 10.1007/978-3-032-01402-3，并以 Chapter、Appendix 或小节名称定位。</p><div class="citation-box"><div><h3>建议引用</h3><p>转载或引用图形时，请保留文章标题、版本和原始来源索引；对外转载与二次分发需取得版权主体授权。</p></div><code>{esc(BLOG['author'])}. 《{esc(BLOG['title'])}》, version {BLOG['version']}, {BLOG['published']}.</code></div><div class="compact-references"><h3>主文来源</h3><ol>{reference_items(SELECTED_SOURCE_IDS)}</ol></div></section>
-</main><div class="publication-note">本文与 Springer、Anthropic、Microsoft、LangChain、MCP、A2A、Agent Skills 等项目不存在隶属或官方背书关系。正文与原创拓扑 © 2026 {esc(BLOG['author'])}，保留所有权利；引用资料与商标权利归各自权利人。</div><footer class="page-footer"><p>{esc(BLOG['short_title'])} · v{BLOG['version']} · {BLOG['published']}</p><a href="#main">回到正文 ↑</a></footer></body></html>'''
+    toc = "".join(
+        f'<li><a href="#{esc(anchor)}"><b>{index:02}</b><span>{esc(title)}</span></a></li>'
+        for index, (anchor, title) in enumerate(TABLE_OF_CONTENTS, 1)
+    )
+    case_rows = "".join(
+        f'<article><b>{esc(step["layer"])}</b><small>{esc(step["question"])}</small>'
+        f'<strong>{esc(step["choice"])}</strong><p>{esc(step["reason"])}</p></article>'
+        for step in CASE_STEPS
+    )
+    decisions = "".join(
+        f'<article><b>{n}</b><h3>{esc(q)}</h3><p>{esc(answer)}</p></article>'
+        for n, q, answer in DECISION_QUESTIONS
+    )
+
+    def chapter(number, title, lead):
+        return (
+            f'<div class="chapter-mark"><span>{number:02}</span><div>'
+            f'<h2>{esc(title)}</h2><p class="article-chapter-lead">{esc(lead)}</p></div></div>'
+        )
+
+    def compare(key):
+        return render_comparison(comparisons[key])
+
+    lifecycle, _, retrieval = COMPARISONS_LIFECYCLE.partition("<h3>6.3")
+    lifecycle += "</div>" if not lifecycle.strip().endswith("</div>") else ""
+    retrieval = '<div class="article-text"><h3>6.3' + retrieval if retrieval else ""
+
+    body = (
+        '<section class="content-section problem-section" id="problem">'
+        + chapter(1, "引言：Agentic AI 架构讨论中的概念混淆",
+                  "不同名称可能对应不同范围的结构决策，因而不能直接作为互斥选项进行比较。")
+        + INTRO + '</section>'
+        + '<section class="content-section" id="classification">'
+        + chapter(2, "Agentic Pattern 的分类依据",
+                  "以 System of Interest 确定讨论范围，以责任、控制、状态与协作关系识别结构差异。")
+        + CLASSIFICATION + '</section>'
+        + '<section class="content-section map-section" id="map">'
+        + chapter(3, "三层 Agentic Pattern 分类框架",
+                  "L1 关注业务责任，L2 关注系统组织，L3 关注局部决策与执行；它们相互约束而非互斥。")
+        + '<figure class="article-level-map diagram-viewport" tabindex="0" role="region" '
+          'aria-label="三层 Pattern 与独立 Enabler 分类示意图">'
+        + diagram_img("three-level-pattern-map", "L1 Application、L2 Architecture、L3 Design，以及横向支撑的 Enablers", True)
+        + '<figcaption>三层按 System of Interest 区分；Enabler 不是第四层 Pattern。完整条目与具体拓扑参见图鉴。</figcaption></figure>'
+        + LEVELS + '</section>'
+        + '<section class="content-section" id="enablers">'
+        + chapter(4, "Pattern 与 Implementation Enabler 的关系",
+                  "结构选择与互操作协议、能力格式和工程实践应分别论证。")
+        + ENABLERS
+        + compare("protocol-capability") + '</section>'
+        + '<section class="case-section" id="case">'
+        + chapter(5, "跨层 Pattern 组合：企业异常处置案例",
+                  "从业务责任和操作约束逐层推导控制结构与局部设计，而不是从技术名称开始拼装。")
+        + CASE
+        + '<figure class="case-figure diagram-viewport" tabindex="0" role="region" '
+          'aria-label="企业异常事件诊断与处置三层 Pattern 组合图">'
+        + diagram_img("enterprise-exception-case",
+                      "企业异常处置应用中的 L1、L2、L3 Pattern 及 Context、MCP、Trace 等 Enabler", True)
+        + '<figcaption>图中每行代表一个架构关注范围；实际运行时由业务授权、工作流门禁和局部 Agent 行为共同形成受控闭环。</figcaption></figure>'
+        + '<div class="case-grid">' + case_rows + '</div></section>'
+        + '<section class="comparisons article-main" id="comparisons">'
+        + chapter(6, "相似 Pattern 的结构差异与适用条件",
+                  "比较控制权、自治身份、生命周期和信息反馈，识别相似拓扑背后的架构差异。")
+        + COMPARISONS_INTRO
+        + compare("control-ownership")
+        + COMPARISONS_ADAPTIVE
+        + compare("adaptive-orchestration")
+        + compare("sequence-identity")
+        + compare("parallel-lifecycle")
+        + lifecycle
+        + compare("subagent-lifecycle")
+        + retrieval
+        + compare("retrieval-control") + '</section>'
+        + '<section class="decision-section" id="decision">'
+        + chapter(7, "Agentic Pattern 的选择与架构权衡",
+                  "以业务约束和质量属性评价候选结构，明确自治收益与协调成本。")
+        + DECISION + '<div class="decision-grid">' + decisions + '</div>'
+        + '<p class="default-rule">设计原则：在满足业务目标和质量约束的前提下，采用最小必要自治与最小必要协调，并以可观察证据验证复杂结构带来的收益。</p></section>'
+        + '<section class="conclusion-section" id="conclusion">'
+        + chapter(8, "结论：以结构决策为中心理解 Agentic AI",
+                  "三层分类是帮助解释和评价架构的分析框架，而不是产品选型清单或强制设计流程。")
+        + CONCLUSION
+        + '<div class="atlas-cta"><div><strong>图鉴与参考资料</strong><p>'
+          f'完整图鉴收录 {pattern_count} 个 Pattern 与 {enabler_count} 个 Enabler，提供结构拓扑、'
+          '应用条件、代价和来源索引。</p></div>'
+          '<a href="atlas.html">查看完整图鉴 →</a></div></section>'
+        + '<section class="method-section" id="method">'
+        + chapter(9, "附录：方法、来源与引用边界",
+                  "明确分类框架的综合性质、来源定位和案例的证据界限。")
+        + METHOD
+        + '<div class="citation-box"><div><h3>建议引用</h3><p>'
+          '引用正文或原创图形时，请保留标题、版本、日期和原始来源索引。</p></div>'
+          f'<code>{esc(BLOG["author"])}. 《{esc(BLOG["title"])}》, version '
+          f'{esc(BLOG["version"])}, {esc(BLOG["modified"])}.</code></div>'
+        + '<div class="compact-references"><h3>主要参考来源</h3><ol>'
+        + reference_items(SELECTED_SOURCE_IDS)
+        + '</ol></div></section>'
+    )
+    return f'''<!doctype html><html lang="zh-Hans">{render_head(BLOG["title"], BLOG["description"], "index.html")}
+<body class="blog-page article-main"><a class="skip-link" href="#main">跳到正文</a>{site_nav("article")}
+<header class="hero"><div class="hero-grid">
+<div class="edition">TECHNICAL ARTICLE · {esc(BLOG["version"])}</div>
+<div class="hero-copy"><p class="eyebrow">AGENTIC PATTERN ATLAS · ARCHITECTURE ANALYSIS</p>
+<h1>Agentic AI 系统中的 Pattern<small>分类、组合与选择：基于 System of Interest 的三层分析框架</small></h1>
+<p class="deck">{esc(BLOG["subtitle"])}</p>
+<div class="article-meta"><span>{esc(BLOG["author"])}</span><span>{published}</span>
+<span>{esc(BLOG["reading_time"])}</span></div>
+<div class="hero-actions"><a href="#problem">阅读文章</a><a href="atlas.html">完整图鉴</a></div></div>
+<div class="hero-index"><a href="#classification"><b>01</b><span>分类依据</span><em>SoI</em></a>
+<a href="#map"><b>02</b><span>三层框架</span><em>L1–3</em></a>
+<a href="#case"><b>03</b><span>跨层案例</span><em>Case</em></a>
+<a href="#decision"><b>04</b><span>架构选择</span><em>ADR</em></a></div></div>
+<div class="hero-rule"><span>Application</span><span>Architecture</span>
+<span>Design</span><span>Enablers</span></div></header>
+<main id="main"><nav class="article-toc" aria-labelledby="article-toc-title">
+<h2 id="article-toc-title">文章目录</h2><ol>{toc}</ol></nav>{body}</main>
+<div class="publication-note">本文与所引用机构不存在隶属或官方背书关系。正文与原创拓扑 © 2026 {esc(BLOG["author"])}，保留所有权利；引用资料与商标权利归各自权利人。</div>
+<footer class="page-footer"><p>{esc(BLOG["short_title"])} · v{BLOG["version"]} · {BLOG["modified"]}</p><a href="#main">回到正文 ↑</a></footer>
+</body></html>'''
 
 
 def public_pattern_html(pattern, index):
@@ -1226,14 +1329,14 @@ def inline_document(document, script_name=None, atlas_standalone=False, taxonomy
         standalone = standalone.replace('href="taxonomy.html"', 'href="#taxonomy-main"')
     else:
         standalone = standalone.replace('href="atlas.html#coverage"', 'href="#method"')
-        standalone = re.sub(r'href="atlas\.html#[^"]+"', 'href="#anchors"', standalone)
-        standalone = standalone.replace('href="atlas.html"', 'href="#anchors"').replace('href="index.html"', 'href="#main"')
-        standalone = standalone.replace('打开完整图鉴', '查看锚点索引').replace(
+        standalone = re.sub(r'href="atlas\.html#[^"]+"', 'href="#map"', standalone)
+        standalone = standalone.replace('href="atlas.html"', 'href="#map"').replace('href="index.html"', 'href="#main"')
+        standalone = standalone.replace('打开完整图鉴', '查看三层框架').replace(
             f'完整查询 {len(PATTERNS)} 个条目',
-            f'浏览 {len(ANCHOR_IDS)} 个关键锚点',
+            f'浏览三层分类框架',
         )
-        standalone = standalone.replace('按层级、名称和来源检索完整图鉴', '从主文定位最常用的 Pattern')
-        standalone = standalone.replace('>完整图鉴</a>', '>锚点索引</a>').replace('>覆盖与来源</a>', '>方法与来源</a>')
+        standalone = standalone.replace('按层级、名称和来源检索完整图鉴', '按三层结构理解模式')
+        standalone = standalone.replace('>完整图鉴</a>', '>三层框架</a>').replace('>覆盖与来源</a>', '>方法与来源</a>')
     return standalone
 
 
