@@ -1,20 +1,20 @@
 BLOG = {
-    "title": "先看见结构，再谈论 Pattern：Agentic AI 三层 Pattern 视觉图鉴",
-    "short_title": "用三层架构地图看懂 Agentic Pattern",
-    "subtitle": "用 Application、Architecture、Design 三层区分 Pattern，并把实现手段放回正确位置",
-    "description": "以 L1 Application、L2 Architecture、L3 Design 重组 47 个 Agentic Pattern，并将 9 个 Technique、Protocol、Practice 与 Capability Format 独立编目；通过真实项目、官方示例和说明性场景解释适用方式。",
+    "title": "Agentic AI 系统中的 Pattern：分类、组合与选择",
+    "short_title": "Agentic AI 系统中的 Pattern",
+    "subtitle": "基于 System of Interest 的三层分析框架，解释 Agentic Pattern 的分类依据、组合关系和架构选择方法。",
+    "description": "系统阐述 Agentic AI 中的 Application、Architecture、Design 三层 Pattern 分类依据、跨层组合、结构差异与架构权衡，并区分 Pattern 与实现手段。",
     "author": "Agentic Pattern Atlas Project",
     "published": "2026-08-08",
     "modified": "2026-11-18",
-    "version": "2.0",
-    "reading_time": "约 35 分钟",
+    "version": "2.1",
+    "reading_time": "约 30 分钟",
 }
 
 
 READING_PATHS = [
-    ("5 分钟理解框架", "错误选型题 → 三层地图 → 组合示例 → 结论", "#problem"),
-    ("25 分钟做架构比较", "七组易混 Pattern → 选择原则", "#comparisons"),
-    ("完整查询 56 个条目", "按层级、家族、名称和来源检索完整图鉴", "atlas.html"),
+    ("分类框架", "研究问题、System of Interest 与三层分类", "#classification"),
+    ("架构组合与选择", "企业异常处置案例、结构比较与架构权衡", "#case"),
+    ("参考图鉴", "查阅完整模式目录与来源", "atlas.html"),
 ]
 
 
