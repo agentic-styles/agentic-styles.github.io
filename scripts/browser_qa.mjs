@@ -47,6 +47,13 @@ try {
     const page = await pageAt(path);
     const broken = await page.locator('img').evaluateAll(images => images.filter(image => !image.complete || image.naturalWidth === 0).map(image => image.src));
     assert(`${path} images`, broken.length === 0, broken);
+    if (path === 'atlas/') {
+      const chapters = page.locator('main > section[id="problem"], main > section[id="classification"], main > section[id="map"], main > section[id="enablers"], main > section[id="case"], main > section[id="comparisons"], main > section[id="decision"], main > section[id="conclusion"]');
+      assert('Article contains eight substantive chapters', await chapters.count() === 8, await chapters.count());
+      assert('Article table of contents', await page.locator('.article-toc li').count() === 8, await page.locator('.article-toc li').count());
+      assert('Article no lecture opening', await page.locator('h2').filter({ hasText: '这是一个无法正确回答的四选一' }).count() === 0, 'No lecture heading');
+      assert('Article links to source catalog', await page.locator('a[href="atlas.html#supervisor-specialist"]').count() > 0, await page.locator('a[href="atlas.html#supervisor-specialist"]').count());
+    }
     if (path === 'atlas/atlas.html') {
       assert('Atlas entries', await page.locator('.pattern-entry').count() === 56, await page.locator('.pattern-entry').count());
       await page.locator('[data-pattern-search]').fill('Supervisor');
