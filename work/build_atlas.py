@@ -1334,12 +1334,9 @@ def inline_document(document, script_name=None, atlas_standalone=False, taxonomy
         atlas_base = canonical_url("atlas.html") or "https://agentic-styles.github.io/atlas/atlas.html"
         standalone = re.sub(r'href="atlas\.html#([^"]+)"', lambda match: f'href="{esc(atlas_base)}#{match.group(1)}"', standalone)
         standalone = standalone.replace('href="atlas.html"', f'href="{esc(atlas_base)}"').replace('href="index.html"', 'href="#main"')
-        standalone = standalone.replace('打开完整图鉴', '查看三层框架').replace(
-            f'完整查询 {len(PATTERNS)} 个条目',
-            f'浏览三层分类框架',
-        )
-        standalone = standalone.replace('按层级、名称和来源检索完整图鉴', '按三层结构理解模式')
-        standalone = standalone.replace('>完整图鉴</a>', '>三层框架</a>').replace('>覆盖与来源</a>', '>方法与来源</a>')
+        # Keep names and public URLs truthful; only remap the external source
+        # index when it cannot be embedded in this single-file version.
+        standalone = standalone.replace('>覆盖与来源</a>', '>方法与来源</a>')
     return standalone
 
 
