@@ -6,6 +6,9 @@ composition; those links never imply a single-parent hierarchy.
 """
 
 COMMON_VARIANTS = {
+    "autonomous-worker": (
+        "always-on-agent-worker",
+    ),
     "supervisor-specialist": (
         "inline-subagent",
         "agent-pool",

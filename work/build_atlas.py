@@ -212,6 +212,22 @@ def scene(pattern):
     elif k == "autonomous-worker":
         s += [node(70, 260, 180, 100, "目标 / 事件", "workflow"), node(420, 220, 250, 180, "自主 Agent", "agent", "长时运行"), node(870, 120, 220, 90, "业务系统", "external"), node(870, 275, 220, 90, "结果", "workflow"), node(870, 430, 220, 90, "人工接管", "human")]
         s += [arrow(250, 310, 420, 310), arrow(670, 275, 870, 165, "行动"), arrow(670, 320, 870, 320, "完成", "data"), arrow(670, 365, 870, 475, "异常", "feedback")]
+    elif k == "always-on-worker":
+        s += [node(70, 150, 220, 85, "定时器", "workflow", "周期 / 主动跟进"),
+              node(440, 150, 260, 85, "人类负责人", "human", "持续委托 · 权限 · 撤销"),
+              node(70, 295, 220, 100, "事件收件箱", "workflow", "外部事件 / 用户回复"),
+              node(440, 285, 260, 110, "Agent Worker", "agent", "一次有界运行"),
+              node(900, 285, 220, 110, "业务系统", "external", "调查 / 受控行动"),
+              node(440, 490, 260, 85, "持久状态", "memory", "跨运行进度与记忆"),
+              node(900, 490, 220, 85, "按需通知", "workflow", "结果 / 问题 / 审核")]
+        s += [arrow(180, 235, 180, 295, "到期事件", "async"),
+              arrow(290, 345, 440, 345, "唤醒", "async"),
+              arrow(570, 235, 570, 285, "授权 / 撤销"),
+              arrow(700, 330, 900, 330, "行动"),
+              arrow(700, 370, 900, 532, "按需交付", "async"),
+              arrow(470, 490, 470, 395, "读取", "data"),
+              arrow(660, 395, 660, 490, "保存", "data"),
+              badge(65, 455, "完成 → 待命；职责保留", LAYER_META["L1"]["color"])]
     elif k == "continuous-controller":
         specs = [(75, "业务信号", "external"), (315, "Sense", "workflow"), (555, "Decide", "agent"), (795, "Act", "tool")]
         for x, lab, role in specs: s.append(node(x, 250, 175, 105, lab, role))
@@ -444,6 +460,8 @@ def source_caption(pattern):
             labels.append("Gullí 2025, Appendix A" + (f", {section}" if section and section != "Appendix A" else ""))
         elif sid=="schmid-subagents": labels.append("Schmid 2026, " + (locator.split(":", 1)[0] if locator else "Four Subagent Patterns"))
         elif sid=="anthropic-agents": labels.append("Anthropic, Building Effective Agents")
+        elif sid=="anthropic-always-on": labels.append("Anthropic 2026, Building always-on agents")
+        elif sid=="lang-ambient-agents": labels.append("LangChain 2025, Introducing ambient agents")
         elif sid.startswith("ms-"): labels.append(f'{src["author"]}, {src["title"]}')
         elif sid.startswith("lang-"): labels.append(f'LangChain Docs, {src["title"]}')
         elif sid=="react-paper": labels.append("Yao et al. 2022, ReAct")

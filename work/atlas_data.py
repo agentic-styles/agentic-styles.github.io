@@ -35,6 +35,22 @@ CHAPTERS = [
 
 
 SOURCES = {
+    "anthropic-always-on": {
+        "title": "Building always-on agents",
+        "author": "William Hu / Anthropic",
+        "url": "https://claude.com/resources/articles/building-always-on-agents",
+        "locator": "November 13, 2026; The cycle behind the always-on agent; The core primitives; How everything fits together",
+        "type": "industry",
+        "accessed_at": "2026-11-18",
+    },
+    "lang-ambient-agents": {
+        "title": "Introducing ambient agents",
+        "author": "Harrison Chase / LangChain",
+        "url": "https://www.langchain.com/blog/introducing-ambient-agents",
+        "locator": "January 14, 2025; What is an ambient agent?; Human-in-the-loop",
+        "type": "industry",
+        "accessed_at": "2026-11-18",
+    },
     "adp-official": {
         "title": "Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems",
         "author": "Antonio Gullí",
@@ -292,12 +308,18 @@ PATTERNS = [
     p("autonomous-worker", "L1", "自主后台工作者", "Autonomous Agent Worker", ["Event-driven Agent", "Long-running Worker"], "Application pattern",
       "由目标或事件触发 Agent 在后台持续工作，只在完成、异常或高风险动作时通知人。", "autonomous-worker",
       "研究、监控、运营处理等可以异步完成且停止条件明确的任务。", "自动化覆盖面大，可跨越多个系统完成结果。",
-      "需要强停止条件、权限治理、预算与恢复机制。", "不是“无人监管”的同义词；关键动作仍可插入 HITL。",
+      "需要强停止条件、权限治理、预算与恢复机制。", "不是“无人监管”的同义词；关键动作仍可插入 HITL。Common 以有界工作项为单位；Always-on Agent Worker 变体在工作项完成后仍保留长期职责并继续待命。",
       "本文综合的 Application Pattern；来源区分 conversational 与 autonomous agents。", ["ms-architecture"]),
+    p("always-on-agent-worker", "L1", "常驻自主工作者", "Always-on Agent Worker", ["Always-on Agent", "Persistent Proactive Worker"], "Application pattern",
+      "在人的持续委托与权限边界内长期承担职责，由事件或定时器唤醒，跨运行保存进度，完成单次工作后继续待命。", "always-on-worker",
+      "持续关注客户变化、邮件处理或业务跟进；单个工作项可结束，但职责直到被撤销才结束。", "减少反复发起任务的交互负担，并在多次运行与会话之间保持工作连续性。",
+      "长期职责可能漂移，重复事件与过期记忆会造成重复行动；需控制唤醒成本、通知频率和权限有效期。",
+      "不是 Autonomous Agent Worker 的别名：它增加持续委托、跨运行连续性和完成后待命。也不等同于 Continuous Controller：持续响应工作项不要求根据行动效果反复调节业务状态；仅进程在线或一次任务执行很久不足以构成本变体。",
+      "本文将来源的 always-on 概念规范化为 L1 Autonomous Agent Worker 的直接变体；父子归属及与 Continuous Controller 的边界属于本文分析。Ambient Agent 是相近概念，非严格同义词。", ["anthropic-always-on", "lang-ambient-agents"]),
     p("continuous-controller", "L1", "持续感知控制器", "Continuous Sense-Decide-Act Controller", ["Continuous Optimization Loop", "AI-first Capability"], "Application architecture pattern",
       "持续感知业务信号，在边界内决策和行动，并根据结果调整下一轮，而不是等待一次性请求。", "continuous-controller",
       "定价、库存、调度、欺诈响应或运维优化需要以机器速度持续闭环。", "把 Agent 从任务执行者提升为可持续运营的业务能力。",
-      "错误会以机器速度传播；目标函数、漂移、人工覆盖和回滚都必须是一等设计。", "Autonomous Worker 处理一个有终点的后台任务；Continuous Controller 持续运行并优化系统状态。",
+      "错误会以机器速度传播；目标函数、漂移、人工覆盖和回滚都必须是一等设计。", "Autonomous Worker 以有界工作项推进任务；其 Always-on 变体可长期接收新工作。Continuous Controller 的判据是依据行动结果反馈持续调节业务状态，而不是服务是否常驻或是否定时唤醒。",
       "L1 AI-native capability pattern；来源明确描述 continuous sense-decide-act 与学习闭环。", ["ms-ai-first"]),
 
     # L2 - organization and control among agents/workflows
@@ -583,6 +605,7 @@ TOPOLOGY_SEMANTICS = {
     "workflow-participant": ("流程引擎拥有端到端控制；Agent 负责一个概率性活动；人工角色承担门禁或例外处理。", "Agent 与确定性步骤通过显式输入输出契约连接，不直接改写整体流程。"),
     "front-door": ("用户面向统一入口；Hub Agent 识别意图并协调业务域；后台系统保持各自责任。", "Hub 保留会话所有权，把任务委派到域系统并汇总结果。"),
     "autonomous-worker": ("事件或目标触发后台 Agent；业务系统提供行动面；人在异常或高风险动作时接管。", "Agent 异步持续执行，直到满足完成、预算、风险或人工接管条件。"),
+    "always-on-worker": ("人拥有长期职责和撤销权；事件收件箱与定时器唤醒 Worker；持久状态跨运行保留进度；业务系统提供行动面，人工处理授权与例外。", "事件唤醒后读取状态并执行有界工作，保存进度、按需通知并返回待命；后续事件或跟进定时器启动下一次运行，直到人撤销职责。此循环维持工作连续性，不必形成业务状态优化闭环。"),
     "continuous-controller": ("Signal Stream 提供连续业务状态；Controller 感知、决策并行动；Human Owner 设定目标、边界和覆盖条件。", "结果反馈进入下一轮决策，闭环持续运行，只有安全停止、人工覆盖或能力退役才终止。"),
     "single-agent": ("单一 Agent 同时拥有目标、控制与状态；Tool、Memory、Knowledge 和 Policy 提供局部能力。", "所有能力调用都回到同一控制循环，不存在 Agent 间协调边。"),
     "workflow-hybrid": ("Workflow 决定顺序、分支和门禁；Agent 只负责需要判断的节点；人处理高风险决策。", "确定性控制边包围概率性节点，状态通过显式流程变量传递。"),
@@ -640,6 +663,7 @@ EXAMPLES = {
     "workflow-participant": "理赔流程把材料一致性检查交给 Agent，赔付审批仍由规则和人工完成。",
     "agentic-front-door": "员工通过一个入口查询 HR、IT 和采购事项，Hub 再协调对应业务域。",
     "autonomous-worker": "研究 Agent 接收主题后在后台持续检索、整理和校验，完成后发送报告。",
+    "always-on-agent-worker": "客户跟进 Agent 长期关注指定客户；新动态触发调查与简报，无新动态则待命，必要时安排后续检查，直到负责人撤销职责。",
     "continuous-controller": "库存优化 Agent 持续感知需求和库位，在策略边界内补货、评估结果并调整下一轮。",
     "single-agent-system": "一个内部知识助手同时处理检索、计算和表单查询，所有工具共享同一会话。",
     "workflow-centric-hybrid": "发布故障处置由固定流程控制，只有根因假设与日志解释交给 Agent。",
@@ -713,6 +737,7 @@ CROSS_LAYER_BY_ID = {
     "workflow-participant": "Agent 只占据一个业务活动，使 L2 继续由流程引擎控制，并要求 实现手段用明确状态契约衔接概率性节点与确定性步骤。",
     "agentic-front-door": "统一入口在 L1 聚合用户体验，向下必须在 L2 明确 Router、Supervisor 与 Handoff 的边界，并统一身份、权限和上下文治理。",
     "autonomous-worker": "后台自治把 L1 的监督方式从逐步确认改成按事件介入，因而要求 L2 支持长任务，实现手段提供停止、恢复和风险升级机制。",
+    "always-on-agent-worker": "L1 继承后台 Worker 的责任边界并延长委托生命周期；L2 可采用单 Agent 或 Supervisor，L3 可复用持久执行与人工中断结构，独立实现手段提供队列、调度、记忆与遥测。",
     "continuous-controller": "持续闭环把 L1 业务能力变成长期运行系统，要求 L2 协作拓扑可持续，并由 L3 决策策略与 实现手段遥测、身份、回滚共同约束。",
     "single-agent-system": "所有决策集中于一个 L3 控制循环，会让 实现手段的提示、工具权限、上下文和记忆目录持续膨胀，但避免了 L2 的协调开销。",
     "workflow-centric-hybrid": "显式 Workflow 把 L3 自主性限制在指定节点内，并让 实现手段的检查点、审批门禁和补偿路径成为端到端恢复的基础。",
@@ -771,6 +796,7 @@ COMPANION_BY_ID = {
     "workflow-participant": "配套结构化输入输出、超时、幂等重试、流程检查点和无法判断时的人工异常路径。",
     "agentic-front-door": "配套意图置信度、身份透传、域权限映射、上下文分区、聚合去重和无法路由时的回退入口。",
     "autonomous-worker": "配套事件队列、持久检查点、预算上限、租约或心跳、暂停与取消，以及高风险动作审批。",
+    "always-on-agent-worker": "配套持久事件收件箱、去重与单职责执行租约、跟进定时器、跨运行记忆、权限复核、按需通知或发件箱、唤醒预算，以及暂停、撤销和高风险动作审批。",
     "continuous-controller": "配套实时信号质量、目标函数与约束、动作速率限制、漂移检测、策略版本、人工覆盖、熔断和回滚。",
     "single-agent-system": "配套工具目录裁剪、上下文压缩、权限分区、模块化提示、轨迹观测和复杂度升级阈值。",
     "workflow-centric-hybrid": "配套持久 Workflow 状态、确定性门禁、Agent 节点输出校验、补偿动作和人工恢复控制台。",
@@ -829,6 +855,7 @@ assert set(CROSS_LAYER_BY_ID) == PATTERN_IDS, "CROSS_LAYER_BY_ID must cover ever
 assert set(COMPANION_BY_ID) == PATTERN_IDS, "COMPANION_BY_ID must cover every pattern exactly once"
 
 SOURCE_LOCATORS_BY_PATTERN = {
+    "always-on-agent-worker": {"anthropic-always-on": "The cycle behind the always-on agent; The core primitives; How everything fits together", "lang-ambient-agents": "What is an ambient agent?; Human-in-the-loop"},
     "single-agent-system": {"adp-7": "Single-agent baseline and organization models；研究用 PDF 物理页 117"},
     "supervisor-specialist": {"adp-7": "Supervisor model；研究用 PDF 物理页 117"},
     "sequential-agents": {"adp-7": "Sequential Handoffs；研究用 PDF 物理页 113"},
@@ -850,7 +877,7 @@ SOURCE_LOCATORS_BY_PATTERN = {
 PATTERN_FAMILY_BY_ID = {
     **{pid: "application" for pid in {
         "embedded-copilot", "workflow-participant", "agentic-front-door",
-        "autonomous-worker", "continuous-controller",
+        "autonomous-worker", "always-on-agent-worker", "continuous-controller",
     }},
     **{pid: "orchestration" for pid in {
         "single-agent-system", "workflow-centric-hybrid", "router-specialist",

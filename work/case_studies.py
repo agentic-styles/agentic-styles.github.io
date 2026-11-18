@@ -48,6 +48,13 @@ CASE_STUDIES = {
         "人给出目标后不需要逐步指挥，Agent 在后台拥有局部执行自主权，但最终合并与发布仍由工程团队负责。",
         "OpenHands repository", "https://github.com/OpenHands/OpenHands",
     ),
+    "always-on-agent-worker": case(
+        "说明性案例", "客户动态常驻跟进", "持续职责下的一次次有界调查",
+        "负责人委托 Agent 长期关注指定客户，希望新动态出现时自动调查，而无需每次重新发起任务。",
+        "新动态或跟进定时器唤醒 Worker；它读取客户记录与上次进度，调查并准备简报，必要时请求审核，完成后保存状态并待命。负责人可暂停或撤销职责。",
+        "这是依据官方运行原语构造的说明性案例，并非已验证部署；它继承后台工作者的责任关系，增加长期委托和跨运行连续性，不以持续调节客户业务状态为目标。",
+        "Anthropic: Building always-on agents", "https://claude.com/resources/articles/building-always-on-agents",
+    ),
     "continuous-controller": case(
         "成熟开源参照", "Kubernetes Controllers", "持续调和期望状态与实际状态",
         "集群中的副本数、节点和工作负载状态不断变化，系统不能只执行一次部署命令后便停止观察。",

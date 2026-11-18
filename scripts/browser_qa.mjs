@@ -48,14 +48,20 @@ try {
     const broken = await page.locator('img').evaluateAll(images => images.filter(image => !image.complete || image.naturalWidth === 0).map(image => image.src));
     assert(`${path} images`, broken.length === 0, broken);
     if (path === 'atlas/atlas.html') {
-      assert('Atlas entries', await page.locator('.pattern-entry').count() === 55, await page.locator('.pattern-entry').count());
+      assert('Atlas entries', await page.locator('.pattern-entry').count() === 56, await page.locator('.pattern-entry').count());
       await page.locator('[data-pattern-search]').fill('Supervisor');
       const filtered = await page.locator('.pattern-entry:not([hidden])').count();
-      assert('Atlas search reduces entries', filtered > 0 && filtered < 55, filtered);
+      assert('Atlas search reduces entries', filtered > 0 && filtered < 56, filtered);
       await page.locator('[data-pattern-search]').fill('no-such-pattern-qa-928374');
       assert('Atlas search zero match', await page.locator('.pattern-entry:not([hidden])').count() === 0, await page.locator('.pattern-entry:not([hidden])').count());
       await page.locator('[data-pattern-search]').fill('');
-      assert('Atlas clear restores entries', await page.locator('.pattern-entry:not([hidden])').count() === 55, await page.locator('.pattern-entry:not([hidden])').count());
+      assert('Atlas clear restores entries', await page.locator('.pattern-entry:not([hidden])').count() === 56, await page.locator('.pattern-entry:not([hidden])').count());
+      await page.locator('[data-pattern-search]').fill('Always-on');
+      const workerVariant = page.locator('#always-on-agent-worker');
+      assert('Always-on search finds variant', await workerVariant.isVisible(), await workerVariant.count());
+      assert('Always-on direct variant relationship', await workerVariant.getAttribute('data-organization') === 'variant', await workerVariant.getAttribute('data-organization'));
+      assert('Always-on links to Common Worker', await workerVariant.locator('.lineage-variant a[href="#autonomous-worker"]').count() === 1, await workerVariant.locator('.lineage-variant').innerText());
+      await page.locator('[data-pattern-search]').fill('');
     }
     await page.screenshot({ path: join(qa, (path.replaceAll('/', '-') || 'home') + '.png') });
     await page.close();

@@ -17,6 +17,7 @@ TAXONOMY_GROUPS = {
             "workflow-participant",
             "agentic-front-door",
             "autonomous-worker",
+            "always-on-agent-worker",
             "continuous-controller",
         ),
     },
