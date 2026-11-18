@@ -1329,8 +1329,11 @@ def inline_document(document, script_name=None, atlas_standalone=False, taxonomy
         standalone = standalone.replace('href="taxonomy.html"', 'href="#taxonomy-main"')
     else:
         standalone = standalone.replace('href="atlas.html#coverage"', 'href="#method"')
-        standalone = re.sub(r'href="atlas\.html#[^"]+"', 'href="#map"', standalone)
-        standalone = standalone.replace('href="atlas.html"', 'href="#map"').replace('href="index.html"', 'href="#main"')
+        # A standalone article has no bundled Pattern catalog: retain accurate
+        # per-entry destinations on the public reference site.
+        atlas_base = canonical_url("atlas.html") or "https://agentic-styles.github.io/atlas/atlas.html"
+        standalone = re.sub(r'href="atlas\.html#([^"]+)"', lambda match: f'href="{esc(atlas_base)}#{match.group(1)}"', standalone)
+        standalone = standalone.replace('href="atlas.html"', f'href="{esc(atlas_base)}"').replace('href="index.html"', 'href="#main"')
         standalone = standalone.replace('打开完整图鉴', '查看三层框架').replace(
             f'完整查询 {len(PATTERNS)} 个条目',
             f'浏览三层分类框架',
@@ -1376,15 +1379,16 @@ def build_intermediates():
 ''',encoding="utf-8")
     (WORK/"design"/"article-outline.md").write_text(f'''# Public Edition Information Architecture
 
-## index.html — Blog narrative
+## index.html — Expository technical article
 
-1. The impossible four-way choice: ReAct / Multi-Agent / RAG / MCP
-2. Three Pattern levels plus an independent Enablers catalog
-3. Enterprise exception-handling example across L1–L3 and Enablers
-4. {len(ANCHOR_IDS)} anchor patterns
-5. {len(COMPARISONS)} comparison matrices
-6. Four decision questions and trade-offs
-7. Conclusion, method, provenance and selected sources
+1. Conceptual confusion and research scope
+2. Classification criteria: System of Interest and control semantics
+3. L1 Application / L2 Architecture / L3 Design
+4. Pattern and implementation enabler distinction, including protocol comparison
+5. Cross-level composition through an enterprise exception-handling case
+6. Similar-structure comparisons grouped by control, identity and lifecycle
+7. Architecture decisions and quality-attribute trade-offs
+8. Conclusion and methodological appendix
 
 ## atlas.html — complete reference layer
 
